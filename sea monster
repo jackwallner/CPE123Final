@@ -1,0 +1,124 @@
+//feel free to change things
+
+float zeta=0;
+
+void wave(int posX, int posY) {
+  fill(12, 148, 110);
+  zeta+=0.04;
+  float z = zeta;
+  float y;
+
+  for (int i=0; i < 100; i++) {
+    fill(random(0, 40), (random(140, 160)-i*0.75), (random(100, 120)-i*0.75));
+    fill(12, (int)100-i*0.5, (int)248-i*0.5);
+    y = sin(z)*50/2;
+    pushMatrix();
+    translate((i*5)+250+posX, y+posY+280);
+    ellipse(0, 0, 45, 45);
+
+    //eye
+    if (i > 98) {
+      fill(255, 255, 0);
+      translate(-470, -265);
+      triangle(470, 250, 470, 270, 490, 260);
+      fill(0);
+      ellipse(479, 260, 8, 10);
+
+      //bottom fins
+    }
+    if (i > 60 && i < 62) {
+      fill(0, 100, 50);
+      translate(0, 50);
+      rotate(radians(30));
+      translate(-400, -200);
+      ellipse(400, 200, 30, 80);
+      fill(0, 150, 50);
+      translate(420, 180);
+      rotate(radians(-10));
+      translate(-400, -200);
+      ellipse(400, 200, 50, 100);
+
+
+      //tail
+    }
+    if (i > 2 && i < 4) {
+      fill(0, 100, 50);
+      translate(-100, -50);
+      rotate(radians(30));
+      translate(-200, -200);
+      ellipse(200, 200, 220, 80);
+      fill(0, 150, 50);
+      translate(200, 240);
+      rotate(radians(-20));
+      translate(-200, -200);
+      ellipse(200, 200, 250, 100);
+
+
+      //top fins
+    }
+    if (i > 90 && i < 92) {
+      fill (0, 150, 50);
+      translate(-50, -80);
+      rotate(radians(-40)); 
+      translate(-200, -200);
+      ellipse(200, 200, 100, 200);
+    }
+    if (i > 86 && i < 88) {
+      fill (0, 140, 50);
+      translate(-70, -70);
+      rotate(radians(-40)); 
+      translate(-200, -200);
+      ellipse(200, 200, 80, 180);
+    }
+    if (i > 80 && i < 82) {
+      fill (0, 130, 50);
+      translate(-65, -45);
+      rotate(radians(-50)); 
+      translate(-200, -200);
+      ellipse(200, 200, 60, 140);
+    }
+    if (i > 74 && i < 76) {
+      fill (0, 120, 50);
+      translate(-60, -30);
+      rotate(radians(-60)); 
+      translate(-200, -200);
+      ellipse(200, 200, 40, 120);
+    }
+    if (i > 68 && i < 70) {
+      fill (0, 110, 50);
+      translate(-40, -20);
+      rotate(radians(-60)); 
+      translate(-200, -200);
+      ellipse(200, 200, 40, 80);
+    }
+    if (i > 62 && i < 64) {
+      fill (0, 100, 50);
+      translate(-30, -20);
+      rotate(radians(-70)); 
+      translate(-200, -200);
+      ellipse(200, 200, 30, 60);
+    }
+
+    popMatrix();
+    z+=50/350f;
+  }
+}
+
+void setup() {
+  size(800, 400);
+  noStroke();
+}
+
+void draw() {
+  background(255);
+  drawMonster(200, 200, 0.5);
+  //drawFace();
+}
+
+void drawMonster(int x, int y, float scaleS) {
+  pushMatrix();
+  scale(scaleS);
+  translate(x, y);
+  wave(0, 0);
+  popMatrix();
+}
