@@ -105,7 +105,7 @@ void wave(int posX, int posY) {
 }
 
 void setup() {
-  size(800, 400);
+  size(1280, 720);
   noStroke();
 }
 
