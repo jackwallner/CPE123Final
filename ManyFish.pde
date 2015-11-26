@@ -4,7 +4,7 @@
 // Not "Articulated" Yet
 
 // declare arrays for 'ManyFish'
-int nManyFish = 20;
+int nManyFish = 60;
 float  pxManyFish[] = new float[nManyFish];
 float  pyManyFish[] = new float[nManyFish];
 float  vxManyFish[] = new float[nManyFish];
