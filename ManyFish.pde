@@ -1,3 +1,5 @@
+/* feel free to modify */
+
 // "ManyFish" (to distinguish from the lone fish, which will be named 'LoneFish')
 // Not "Articulated" Yet
 
