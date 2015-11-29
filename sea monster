@@ -1,11 +1,11 @@
 //feel free to change things
 
-float zeta=0;
+float monsterzeta=0;
 
 void wave(int posX, int posY) {
   fill(12, 148, 110);
-  zeta+=0.04;
-  float z = zeta;
+  monsterzeta+=0.04;
+  float z = monsterzeta;
   float y;
 
   for (int i=0; i < 100; i++) {
