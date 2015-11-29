@@ -1,5 +1,21 @@
 //Main File for the CPE 123 Project
 
+
+
+// declare arrays for 'ManyFish'
+int nManyFish = 60;
+float  pxManyFish[] = new float[nManyFish];
+float  pyManyFish[] = new float[nManyFish];
+float  vxManyFish[] = new float[nManyFish];
+float  vyManyFish[] = new float[nManyFish];
+color  colorManyFish[] = new color[nManyFish];
+
+
+//sea monster
+
+float monsterzeta=0;
+
+
 //Declare Variables
 
 
@@ -8,6 +24,7 @@ float theta=0.0;
 float zeta=0.0;
 float beta=0.0;
 float eta=0.0;
+int end1;
 int swap;
 
 //Setup Function
@@ -16,6 +33,14 @@ void setup(){
   background(18,170,190);
   //seaweed setup
   swap = 0;
+  // initialize arrays for 'ManyFish'
+  for (int loopManyFish = 0; loopManyFish < nManyFish; loopManyFish++) {
+    pxManyFish[loopManyFish] = random(30, 500);
+    pyManyFish[loopManyFish] = random(20, 580);
+    vxManyFish[loopManyFish] = random(2, 4);
+    vyManyFish[loopManyFish] = random(-1, 1);
+    colorManyFish[loopManyFish] = color(random(0, 255), random(0, 255), random(0, 255));
+  }
 }
   
 //Draw Function
@@ -34,6 +59,17 @@ void draw(){
   seaweeds(500,320,1, 0.03);
   swap = 0;
   seaweeds(-200,1040,0.5,0.03);
+  drawMonster(200, 200, 0.5);
+  
+  //SCENE 1
+  
+  
+  for (int loopManyFish=0; loopManyFish < nManyFish; loopManyFish++) {
+    ManyFish(pxManyFish[loopManyFish], pyManyFish[loopManyFish], random(0, PI/20), random(0.3, 0.35), colorManyFish[loopManyFish]);
+    pxManyFish[loopManyFish] += vxManyFish[loopManyFish];
+    pyManyFish[loopManyFish] += vyManyFish[loopManyFish];
+  }
+  
 }
 
 
@@ -222,4 +258,146 @@ void wave(int posX, int posY, float uheta, float aeta, float ceta, float feta) {
   //fill(12,148,110);
   //ellipse(posX+425, posY+410, 150,100);
 }
+}
+
+void ManyFish (float txManyFish, float tyManyFish, float rotateManyFish, float scaleManyFish, color colorManyFish) {
+
+  // [Scale, Rotate, Translate Entire Fish]
+  pushMatrix();
+  translate(txManyFish, tyManyFish);
+  rotate(rotateManyFish);
+  scale(scaleManyFish);
+
+  fill(colorManyFish);
+  noStroke();
+  // Body (made up of two triangles on two sides and one ellipse in the middle)
+  ellipse(0, 0, 197, 69); // Body | Middle
+  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
+  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
+
+  // Tails
+  pushMatrix();
+  translate(-145, 0);
+  stroke(colorManyFish);
+  strokeWeight(6);
+  line(0, 0, -37, -22);
+  line(0, 0, -37, 22);
+  popMatrix();
+
+  // Eye
+  fill(255);
+  stroke(255);
+  ellipse(72, -7, 4, 4);
+
+  popMatrix(); // END [Scale, Rotate, Translate Entire Fish]
+}
+
+void monsterwave(int posX, int posY) {
+  fill(12, 148, 110);
+  monsterzeta+=0.04;
+  float z = monsterzeta;
+  float y;
+
+  for (int i=0; i < 100; i++) {
+    fill(random(0, 40), (random(140, 160)-i*0.75), (random(100, 120)-i*0.75));
+    fill(12, (int)100-i*0.5, (int)248-i*0.5);
+    y = sin(z)*50/2;
+    pushMatrix();
+    translate((i*5)+250+posX, y+posY+280);
+    ellipse(0, 0, 45, 45);
+
+    //eye
+    if (i > 98) {
+      fill(255, 255, 0);
+      translate(-470, -265);
+      triangle(470, 250, 470, 270, 490, 260);
+      fill(0);
+      ellipse(479, 260, 8, 10);
+
+      //bottom fins
+    }
+    if (i > 60 && i < 62) {
+      fill(0, 100, 50);
+      translate(0, 50);
+      rotate(radians(30));
+      translate(-400, -200);
+      ellipse(400, 200, 30, 80);
+      fill(0, 150, 50);
+      translate(420, 180);
+      rotate(radians(-10));
+      translate(-400, -200);
+      ellipse(400, 200, 50, 100);
+
+
+      //tail
+    }
+    if (i > 2 && i < 4) {
+      fill(0, 100, 50);
+      translate(-100, -50);
+      rotate(radians(30));
+      translate(-200, -200);
+      ellipse(200, 200, 220, 80);
+      fill(0, 150, 50);
+      translate(200, 240);
+      rotate(radians(-20));
+      translate(-200, -200);
+      ellipse(200, 200, 250, 100);
+
+
+      //top fins
+    }
+    if (i > 90 && i < 92) {
+      fill (0, 150, 50);
+      translate(-50, -80);
+      rotate(radians(-40)); 
+      translate(-200, -200);
+      ellipse(200, 200, 100, 200);
+    }
+    if (i > 86 && i < 88) {
+      fill (0, 140, 50);
+      translate(-70, -70);
+      rotate(radians(-40)); 
+      translate(-200, -200);
+      ellipse(200, 200, 80, 180);
+    }
+    if (i > 80 && i < 82) {
+      fill (0, 130, 50);
+      translate(-65, -45);
+      rotate(radians(-50)); 
+      translate(-200, -200);
+      ellipse(200, 200, 60, 140);
+    }
+    if (i > 74 && i < 76) {
+      fill (0, 120, 50);
+      translate(-60, -30);
+      rotate(radians(-60)); 
+      translate(-200, -200);
+      ellipse(200, 200, 40, 120);
+    }
+    if (i > 68 && i < 70) {
+      fill (0, 110, 50);
+      translate(-40, -20);
+      rotate(radians(-60)); 
+      translate(-200, -200);
+      ellipse(200, 200, 40, 80);
+    }
+    if (i > 62 && i < 64) {
+      fill (0, 100, 50);
+      translate(-30, -20);
+      rotate(radians(-70)); 
+      translate(-200, -200);
+      ellipse(200, 200, 30, 60);
+    }
+
+    popMatrix();
+    z+=50/350f;
+  }
+}
+
+void drawMonster(int x, int y, float scaleS) {
+  pushMatrix();
+  scale(scaleS);
+  translate(x, y);
+  monsterwave(0, 0);
+  popMatrix();
 }
