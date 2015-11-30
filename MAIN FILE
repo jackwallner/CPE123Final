@@ -1,6 +1,10 @@
 //Main File for the CPE 123 Project
 
+//Timeline
 
+int scene;
+int s1;
+int s2;
 
 // declare arrays for 'ManyFish'
 int nManyFish = 60;
@@ -32,7 +36,10 @@ void setup(){
   size(1280, 720);
   background(18,170,190);
   //seaweed setup
+  s1 = 500;
+  s2 = 0;
   swap = 0;
+  scene = 0;
   // initialize arrays for 'ManyFish'
   for (int loopManyFish = 0; loopManyFish < nManyFish; loopManyFish++) {
     pxManyFish[loopManyFish] = random(30, 500);
@@ -59,16 +66,66 @@ void draw(){
   seaweeds(500,320,1, 0.03);
   swap = 0;
   seaweeds(-200,1040,0.5,0.03);
-  drawMonster(200, 200, 0.5);
+  //drawMonster(200, 200, 0.5);
   
   //SCENE 1
   
+  /*
+  if (scene == 1){
+    for (int i = 0; i < s1; i++){
+      int s1x;
+      float s1y;
+      int s1r;
+      s1x = -25;
+      s1y = 340;
+      s1r = 5;
+      ManyFish(s1x+i, s1y, s1r, 1, 255);
+      s1x += 1;
+      println(s1x);
+      //s1y = 100*sin(s1y);
+      if (s1x < 340){
+        s1x += 1;
+      } else {
+        s1x = 341;
+        {
+        
+        
+    }
+  }
+    }
+  }
+  */
   
-  for (int loopManyFish=0; loopManyFish < nManyFish; loopManyFish++) {
+  //Scene 2
+  
+  if (scene == 2){
+    for (int i = 0; i < s2; i++){
+      fill(18,170,190);
+      rect(0,0, width, height*0.65);
+      int x;
+      int y;
+      x = -500 + 5*i;
+      y = height/2;
+      drawMonster(x, y, 0.5);
+    }
+  }
+  
+  if (s2 < 360) {
+    s2 += 1;
+    println(s2);
+  } else {
+    s2 = 0;
+  }
+  
+  
+  
+  
+ /* for (int loopManyFish=0; loopManyFish < nManyFish; loopManyFish++) {
     ManyFish(pxManyFish[loopManyFish], pyManyFish[loopManyFish], random(0, PI/20), random(0.3, 0.35), colorManyFish[loopManyFish]);
     pxManyFish[loopManyFish] += vxManyFish[loopManyFish];
     pyManyFish[loopManyFish] += vyManyFish[loopManyFish];
   }
+  */
   
 }
 
@@ -400,4 +457,9 @@ void drawMonster(int x, int y, float scaleS) {
   translate(x, y);
   monsterwave(0, 0);
   popMatrix();
+}
+
+void mousePressed(){
+  scene = scene + 1;
+  println(scene);
 }
