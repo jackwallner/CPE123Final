@@ -196,7 +196,7 @@ void draw() {
 
 
   //Scene 2 (sea monster appears)
-  if (scene >= 2) {
+  if (scene == 2) {
     /*for (int i = 0; i < s2; i++){
      fill(18,170,190);
      rect(0,0, width, height*0.65);
@@ -211,16 +211,17 @@ void draw() {
     if (px < 600) {
       float vx;
       float vy;
-      vx = 3;
+      vx = 10;
       vy = 1*sin(radians(359));
       px += vx;
       py += vy;
-      println(py);
+      println(px);
+      drawMonster(px, py, 0.5);
     }
-    drawMonster(px, py, 0.5);
-  } 
-  if ((px > 600) && (scene <= 2)) {
+  if (px >= 600) {
     drawMonster(600, py, 0.5);
+    println("done");
+  }
   }
 
   // Scene 3 (bunch of fish come out after sea monster)
@@ -230,9 +231,9 @@ void draw() {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
     }
-  }
+  
 
-  if (px > 600) {
+  if (px >= 600) {
     float vx;
     float vy;
     vx = 3;
@@ -240,6 +241,7 @@ void draw() {
     px += vx;
     py += vy;
     drawMonster(px, py, 0.5);
+  }
   }
 } // bracket to end void draw()
 
