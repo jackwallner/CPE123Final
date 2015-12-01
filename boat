@@ -1,0 +1,132 @@
+float bpy;
+float brotate;
+boolean boatD = false;
+boolean boatP = false;
+void setup() {
+  size(1280, 720);
+  background(18, 170, 190);
+  noStroke();
+  brotate = 0;
+  bpy= 595;
+}
+void mousePressed(){
+  if (mouseX>0){
+    boatP = true;
+  } else {
+    boatP= false;
+  }
+}
+void draw() {
+  background(18, 170, 190);
+  drawBoat();
+  boatPosition();
+  animateBoat();
+}
+void boatPosition(){
+  if (boatP==true){
+    bpy-=1;
+  }
+  if (bpy <=295){
+    boatP= false;
+  }
+}
+void animateBoat() {
+  if (brotate <= -PI/50) {
+    boatD = false;
+  }
+  if (brotate > PI/50) {
+    boatD = true;
+  }
+  if (boatD ==false) {
+    brotate += radians(0.02);
+  } else {
+    brotate -= radians(0.02);
+  }
+}
+
+void drawBoat() {
+  pushMatrix();
+  translate(635, bpy);
+  rotate(brotate);
+  translate(-635, -295);
+  fill(237,239,230);
+  beginShape();
+  vertex(83, 476);
+  vertex(800,500);
+  vertex(1205, 541);
+  vertex(1000,600);
+  vertex( 200, 600);
+  
+  endShape();
+  fill(255); //white shapes of window
+  rect(403, 424, 7, 129);
+  rect(266, 423, 200, 7);
+  beginShape();
+  vertex(309, 424);
+  vertex(403, 423);
+  vertex(403, 436);
+  vertex(358, 435);
+  vertex(350, 439);
+  vertex(347, 499);
+  vertex(353, 505);
+  vertex(403, 508);
+  vertex(407, 534);
+  vertex(285, 509);
+  vertex(297, 494);
+  vertex(321, 498);
+  vertex(324, 483);
+  endShape(CLOSE);
+  beginShape();
+  vertex(237, 410);
+  vertex(266, 415);
+  vertex(410, 421);
+  vertex(404, 434);
+  vertex(283, 429);
+  vertex(285, 445);
+  vertex(295, 492);
+  vertex(294, 512);
+  vertex(259, 510);
+  vertex(260, 494);
+  vertex(281, 497);
+  vertex(266, 429);
+  vertex(237, 420);
+  endShape(CLOSE);
+  fill(119, 48, 42); //door frame
+  rect(410, 422, 142, 139);
+  fill(63, 23, 32); //door opening
+  rect(415, 429, 132, 129, 10, 10, 0, 0);
+  fill(255); //white door
+  rect(480, 429, 67, 129, 0, 10, 0, 0);
+  fill(119, 48, 42); //door knob
+  ellipse(495, 510, 10, 12);
+  fill(106, 174, 239);
+  beginShape(); //bottom base
+  vertex(95, 500);
+  vertex(527, 579);
+  vertex(1023, 582);
+  vertex(1191, 561);
+  vertex(1155, 674);
+  vertex(132, 674);
+  endShape(CLOSE);
+  fill(119, 48, 42);
+  beginShape(); //base brown frame
+  vertex(83, 476);
+  vertex(527, 550);
+  vertex(1023, 555);
+  vertex(1205, 541);
+  vertex(1199, 561);
+  vertex(1023, 582);
+  vertex(527, 579);
+  vertex(95, 500);
+  vertex(87, 496);
+  endShape(CLOSE);
+  fill(186, 187, 203);
+  beginShape();
+  vertex(237, 410);
+  vertex(510, 405);
+  vertex(550, 423);
+  vertex(410, 424);
+  vertex(266, 415);
+  endShape(CLOSE);
+  popMatrix();
+}
