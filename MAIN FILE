@@ -30,7 +30,7 @@ float beta=0.0;
 float eta=0.0;
 int end1;
 int swap;
-int px;
+int px, fx, fy;
 int py;
 
 //Setup Function
@@ -42,6 +42,8 @@ void setup(){
   s2 = 0;
   swap = 0;
   scene = 0;
+  fx = 1350;
+  fy = 320;
   px = -800;
   py = height/2;
   // initialize arrays for 'ManyFish'
@@ -74,6 +76,9 @@ void draw(){
   
   
   //first fish
+  
+  
+  /*
   pushMatrix();
   translate(1000, 150);
   scale(.5);
@@ -99,6 +104,25 @@ void draw(){
   ellipse(-70, -7, 4, 4);
   popMatrix();
   noStroke();
+  */
+  
+  if (scene >= 1){
+    if (fx > 650){
+    float vx;
+    float vy;
+    vx = -5;
+    vy = 0;
+    fx += vx;
+    fy += vy;
+    FirstFish(fx, fy);
+    } 
+  if (fx <= 650){
+    FirstFish(650, fy);
+    println("boom");
+    }
+  }
+ 
+  
   //SCENE 1
   
   /*
@@ -129,7 +153,7 @@ void draw(){
   
   //Scene 2
   
-  if (scene == 2){
+  if (scene >= 2){
     /*for (int i = 0; i < s2; i++){
       fill(18,170,190);
       rect(0,0, width, height*0.65);
@@ -500,6 +524,35 @@ void drawMonster(int x, int y, float scaleS) {
   monsterwave(0, 0);
   popMatrix();
 }
+
+void FirstFish(int x, int y){
+  pushMatrix();
+  translate(x, y);
+  scale(.5);
+   fill(200, 0, 0);
+  noStroke();
+  // Body (made up of two triangles on two sides and one ellipse in the middle)
+  ellipse(0, 0, 197, 69); // Body | Middle
+  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
+  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
+
+  // Tails
+  pushMatrix();
+  translate(-145, 0);
+  stroke(200, 0, 0);
+  strokeWeight(6);
+  line(286, 0, 320, -22);
+  line(286, 0, 320, 22);
+  popMatrix();
+
+  // Eye
+  fill(255);
+  stroke(255);
+  ellipse(-70, -7, 4, 4);
+  popMatrix();
+  noStroke();
+}
+
 
 void mousePressed(){
   scene = scene + 1;
