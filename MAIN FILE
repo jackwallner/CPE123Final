@@ -30,6 +30,8 @@ float beta=0.0;
 float eta=0.0;
 int end1;
 int swap;
+int px;
+int py;
 
 //Setup Function
 void setup(){
@@ -40,6 +42,8 @@ void setup(){
   s2 = 0;
   swap = 0;
   scene = 0;
+  px = -800;
+  py = height/2;
   // initialize arrays for 'ManyFish'
   for (int loopManyFish = 0; loopManyFish < nManyFish; loopManyFish++) {
     pxManyFish[loopManyFish] = random(30, 500);
@@ -99,7 +103,7 @@ void draw(){
   //Scene 2
   
   if (scene == 2){
-    for (int i = 0; i < s2; i++){
+    /*for (int i = 0; i < s2; i++){
       fill(18,170,190);
       rect(0,0, width, height*0.65);
       int x;
@@ -108,14 +112,25 @@ void draw(){
       y = height/2;
       drawMonster(x, y, 0.5);
     }
+    */
+      
+      if (px < 600) {
+      float vx;
+      float vy;
+      vx = 3;
+      vy = 1*sin(radians(359));
+      px += vx;
+      py += vy;
+      println(py);
+      }
+      drawMonster(px, py, 0.5);
+  } if (px > 600) {
+    drawMonster(600,py, 0.5);
+     
   }
+ 
   
-  if (s2 < 360) {
-    s2 += 1;
-    println(s2);
-  } else {
-    s2 = 0;
-  }
+    
   
   
   
