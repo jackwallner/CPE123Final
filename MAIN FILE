@@ -8,16 +8,18 @@ int s2;
 /* DECLARE VARIABLES */
 // for fish
 int fishNumber = 20;
-float fishTime = 2;
+float fishTime = 3;
 float fishEyeMove = 0, fishTailMove = 0;
 boolean fishTailSwitch = false;
 boolean fishAnimate = false;
 // for FirstFish
 int FirstFishNumber = 1;
-float FirstFishTime = 2;
+float FirstFishTime = 2.2;
 float FirstFishEyeMove = 0, FirstFishTailMove = 0;
 boolean FirstFishTailSwitch = false;
 boolean FirstFishAnimate = false;
+float fx, fy;
+int FirstFishPX;
 // for seaweeds
 float theta=0.0;
 float zeta=0.0;
@@ -25,7 +27,7 @@ float beta=0.0;
 float eta=0.0;
 int end1;
 int swap;
-int px, fx, fy;
+int px;
 int py;
 // for sea monster
 float monsterzeta=0;
@@ -55,8 +57,8 @@ void setup() {
   s2 = 0;
   swap = 0;
   scene = 0;
-  fx = 1350;
-  fy = 320;
+  fx = width*1.15;
+  fy = height/2-100;
   px = -800;
   py = height/2;
 
@@ -70,7 +72,7 @@ void setup() {
   // for fish
   for (int i = 0; i < fishNumber; i++) {
     fishLoc[i] = new PVector(width*-.1, (height-70)/fishNumber*i+40);
-    fishDir[i] = new PVector(random(1, 1.5), 0);
+    fishDir[i] = new PVector(random(0.8, 1.7), 0);
     fishScale[i] = random(0.15, 0.65);
     //fishRotate[i] = random(radians(-30), radians(30));
     fishColor[i] = color(random(0, 255), random(0, 255), random(0, 255));
@@ -86,12 +88,11 @@ void setup() {
   FirstFishEyeColor = new color[FirstFishNumber];
   // for FirstFish
   for (int i = 0; i < FirstFishNumber; i++) {
-    FirstFishLoc[i] = new PVector(width*1.2, height/2);
+    FirstFishLoc[i] = new PVector(width*1.15, height/2-120);
     FirstFishDir[i] = new PVector(-1, 0);
     FirstFishScale[i] = -1;
-    //FirstFishRotate[i] = random(radians(-30), radians(30));
+    FirstFishRotate[i] = random(radians(-30), radians(30));
     FirstFishColor[i] = color(200, 0, 0);
-    ;
     FirstFishEyeColor[i] = color(255);
   }
 }
@@ -114,7 +115,7 @@ void draw() {
   seaweeds(-200, 1040, 0.5, 0.03);
   //drawMonster(200, 200, 0.5);
 
-  
+
   //if (scene >= 1) {
   // if (fx > 650) {
   //   float vx;
@@ -160,8 +161,41 @@ void draw() {
    }
    */
 
-  //Scene 2
+  // Scene 1 (first fish appears)
+  if (scene >= 1) {
+    FirstFishAnimate();
+  }
+  if (fx > 600) {
+    float vx;
+    float vy;
+    vx = -3;
+    vy = 0;
+    //vy = -1;
+    fx += vx;
+    fy += vy;
 
+    drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+
+    //if (fy < 100) {
+    //  vy = 1;
+    //  fy += vy;
+    //  drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+    //}
+    
+    //if (fy > 500) {
+    //  vy = -1;
+    //  fy += vy;
+    //        drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+    //}
+    
+  }
+
+  if (fx <= 600) {
+    drawFirstFish(600, fy, -1, 0, #C80000, 255);
+  }
+
+
+  //Scene 2 (sea monster appears)
   if (scene >= 2) {
     /*for (int i = 0; i < s2; i++){
      fill(18,170,190);
@@ -185,38 +219,29 @@ void draw() {
     }
     drawMonster(px, py, 0.5);
   } 
-  if ((px > 600) && (scene <= 2))  {
+  if ((px > 600) && (scene <= 2)) {
     drawMonster(600, py, 0.5);
   }
 
-  // for fish
-  if (scene >= 3){
-  fishAnimate();
-  for (int i = 0; i < fishNumber; i++) {
-    //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
-    drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
-  }
-   if(px > 600) {
-      float vx;
-      float vy;
-      vx = 3;
-      vy = 1*sin(radians(359));
-      px += vx;
-      py += vy;
-     drawMonster(px, py, 0.5);
-   }
+  // Scene 3 (bunch of fish come out after sea monster)
+  if (scene >= 3) {
+    fishAnimate();
+    for (int i = 0; i < fishNumber; i++) {
+      //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
+      drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
+    }
   }
 
-  // for FirstFish
-  if (scene >= 1){
-  FirstFishAnimate();
-  
-  for (int i = 0; i < FirstFishNumber; i++) {
-    //FirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
-    drawFirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
+  if (px > 600) {
+    float vx;
+    float vy;
+    vx = 3;
+    vy = 1*sin(radians(359));
+    px += vx;
+    py += vy;
+    drawMonster(px, py, 0.5);
   }
-  }
-}
+} // bracket to end void draw()
 
 // Seaweed Fucnctions
 
@@ -515,9 +540,9 @@ void drawMonster(int x, int y, float scaleS) {
 }
 
 // functions for fish
-void drawFish (float fishTranslatex, float fishTranslatey, float fishScale, float fishRotate, color fishColor, color fishEyeColor) {
+void drawFish (float fishTranslateX, float fishTranslateY, float fishScale, float fishRotate, color fishColor, color fishEyeColor) {
   pushMatrix(); // applies to entire fish
-  translate(fishTranslatex, fishTranslatey); // translate entire fish
+  translate(fishTranslateX, fishTranslateY); // translate entire fish
   rotate(fishRotate); // rotate entire fish
   scale(fishScale); // scale entire fish
 
@@ -572,11 +597,12 @@ void fishAnimate() {
 
 // END functions for fish
 
-// functiosn for FirstFish
+// functions for FirstFish
 
-void drawFirstFish (float FirstFishTranslatex, float FirstFishTranslatey, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor) {
+void drawFirstFish (float FirstFishTranslateX, float FirstFishTranslateY, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor) {
   pushMatrix(); // applies to entire FirstFish
-  translate(FirstFishTranslatex, FirstFishTranslatey); // translate entire FirstFish
+
+  translate(FirstFishTranslateX, FirstFishTranslateY); // translate entire FirstFish
   rotate(FirstFishRotate); // rotate entire FirstFish
   scale(FirstFishScale); // scale entire FirstFish
 
