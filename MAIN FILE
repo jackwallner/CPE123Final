@@ -185,22 +185,36 @@ void draw() {
     }
     drawMonster(px, py, 0.5);
   } 
-  if (px > 600) {
+  if ((px > 600) && (scene <= 2))  {
     drawMonster(600, py, 0.5);
   }
 
   // for fish
+  if (scene >= 3){
   fishAnimate();
   for (int i = 0; i < fishNumber; i++) {
     //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
     drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
   }
+   if(px > 600) {
+      float vx;
+      float vy;
+      vx = 3;
+      vy = 1*sin(radians(359));
+      px += vx;
+      py += vy;
+     drawMonster(px, py, 0.5);
+   }
+  }
 
   // for FirstFish
+  if (scene >= 1){
   FirstFishAnimate();
+  
   for (int i = 0; i < FirstFishNumber; i++) {
     //FirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
     drawFirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
+  }
   }
 }
 
