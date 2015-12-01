@@ -211,7 +211,7 @@ void draw() {
     if (px < 600) {
       float vx;
       float vy;
-      vx = 10;
+      vx = 6;
       vy = 1*sin(radians(359));
       px += vx;
       py += vy;
@@ -238,7 +238,7 @@ void draw() {
     float vy;
     vx = 3;
     vy = 1*sin(radians(359));
-    px += vx;
+    px += vx * 2;
     py += vy;
     drawMonster(px, py, 0.5);
   }
