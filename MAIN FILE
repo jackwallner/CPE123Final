@@ -1,29 +1,24 @@
 //Main File for the CPE 123 Project
 
 //Timeline
-
 int scene;
 int s1;
 int s2;
 
-// declare arrays for 'ManyFish'
-int nManyFish = 60;
-float  pxManyFish[] = new float[nManyFish];
-float  pyManyFish[] = new float[nManyFish];
-float  vxManyFish[] = new float[nManyFish];
-float  vyManyFish[] = new float[nManyFish];
-color  colorManyFish[] = new color[nManyFish];
-
-
-//sea monster
-
-float monsterzeta=0;
-
-
-//Declare Variables
-
-
-//Seaweed variables
+/* DECLARE VARIABLES */
+// for fish
+int fishNumber = 20;
+float fishTime = 2;
+float fishEyeMove = 0, fishTailMove = 0;
+boolean fishTailSwitch = false;
+boolean fishAnimate = false;
+// for FirstFish
+int FirstFishNumber = 1;
+float FirstFishTime = 2;
+float FirstFishEyeMove = 0, FirstFishTailMove = 0;
+boolean FirstFishTailSwitch = false;
+boolean FirstFishAnimate = false;
+// for seaweeds
 float theta=0.0;
 float zeta=0.0;
 float beta=0.0;
@@ -32,11 +27,29 @@ int end1;
 int swap;
 int px, fx, fy;
 int py;
+// for sea monster
+float monsterzeta=0;
+
+/* DECLARE ARRAYS */
+// for fish
+PVector fishLoc[];
+PVector fishDir[];
+float fishScale[];
+float fishRotate[];
+color fishColor[];
+color fishEyeColor[];
+// for FirstFish
+PVector FirstFishLoc[];
+PVector FirstFishDir[];
+float FirstFishScale[];
+float FirstFishRotate[];
+color FirstFishColor[];
+color FirstFishEyeColor[];
 
 //Setup Function
-void setup(){
+void setup() {
   size(1280, 720);
-  background(18,170,190);
+  background(18, 170, 190);
   //seaweed setup
   s1 = 500;
   s2 = 0;
@@ -46,126 +59,122 @@ void setup(){
   fy = 320;
   px = -800;
   py = height/2;
-  // initialize arrays for 'ManyFish'
-  for (int loopManyFish = 0; loopManyFish < nManyFish; loopManyFish++) {
-    pxManyFish[loopManyFish] = random(30, 500);
-    pyManyFish[loopManyFish] = random(20, 580);
-    vxManyFish[loopManyFish] = random(2, 4);
-    vyManyFish[loopManyFish] = random(-1, 1);
-    colorManyFish[loopManyFish] = color(random(0, 255), random(0, 255), random(0, 255));
+
+  // initializing arrays for fish 
+  fishLoc = new PVector[fishNumber];
+  fishDir = new PVector[fishNumber];
+  fishScale = new float[fishNumber];
+  fishRotate = new float[fishNumber];
+  fishColor = new color[fishNumber];
+  fishEyeColor = new color[fishNumber];
+  // for fish
+  for (int i = 0; i < fishNumber; i++) {
+    fishLoc[i] = new PVector(width*-.1, (height-70)/fishNumber*i+40);
+    fishDir[i] = new PVector(random(1, 1.5), 0);
+    fishScale[i] = random(0.15, 0.65);
+    //fishRotate[i] = random(radians(-30), radians(30));
+    fishColor[i] = color(random(0, 255), random(0, 255), random(0, 255));
+    fishEyeColor[i] = color(random(225, 255));
+  }
+
+  // initializing arrays for FirstFish 
+  FirstFishLoc = new PVector[FirstFishNumber];
+  FirstFishDir = new PVector[FirstFishNumber];
+  FirstFishScale = new float[FirstFishNumber];
+  FirstFishRotate = new float[FirstFishNumber];
+  FirstFishColor = new color[FirstFishNumber];
+  FirstFishEyeColor = new color[FirstFishNumber];
+  // for FirstFish
+  for (int i = 0; i < FirstFishNumber; i++) {
+    FirstFishLoc[i] = new PVector(width*1.2, height/2);
+    FirstFishDir[i] = new PVector(-1, 0);
+    FirstFishScale[i] = -1;
+    //FirstFishRotate[i] = random(radians(-30), radians(30));
+    FirstFishColor[i] = color(200, 0, 0);
+    ;
+    FirstFishEyeColor[i] = color(255);
   }
 }
-  
+
 //Draw Function
-void draw(){
-  background(18,170,190);
+void draw() {
+  background(18, 170, 190);
   noStroke();
   //Seaweed, feel free to play around and move it accordingly
   swap = 0;
-  seaweeds(0,320,1, 0.03);  
-  seaweeds(1000,1040,0.5, 0.03);
+  seaweeds(0, 320, 1, 0.03);  
+  seaweeds(1000, 1040, 0.5, 0.03);
   swap = 1;
-  seaweeds(0,1040,0.5, 0.03);
-  seaweeds(375,80,1.5,0.03);
+  seaweeds(0, 1040, 0.5, 0.03);
+  seaweeds(375, 80, 1.5, 0.03);
   swap = 2;
-  seaweeds(800,1040,0.5, 0.03);
-  seaweeds(500,320,1, 0.03);
+  seaweeds(800, 1040, 0.5, 0.03);
+  seaweeds(500, 320, 1, 0.03);
   swap = 0;
-  seaweeds(-200,1040,0.5,0.03);
+  seaweeds(-200, 1040, 0.5, 0.03);
   //drawMonster(200, 200, 0.5);
-  
-  
-  //first fish
-  
-  
-  /*
-  pushMatrix();
-  translate(1000, 150);
-  scale(.5);
-   fill(200, 0, 0);
-  noStroke();
-  // Body (made up of two triangles on two sides and one ellipse in the middle)
-  ellipse(0, 0, 197, 69); // Body | Middle
-  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
-  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
 
-  // Tails
-  pushMatrix();
-  translate(-145, 0);
-  stroke(200, 0, 0);
-  strokeWeight(6);
-  line(286, 0, 320, -22);
-  line(286, 0, 320, 22);
-  popMatrix();
+  
+  //if (scene >= 1) {
+  // if (fx > 650) {
+  //   float vx;
+  //   float vy;
+  //   vx = -5;
+  //   vy = 0;
+  //   fx += vx;
+  //   fy += vy;
+  //   FirstFish(fx, fy);
+  // } 
+  // if (fx <= 650) {
+  //   FirstFish(650, fy);
+  //   println("boom");
+  // }
+  //}
 
-  // Eye
-  fill(255);
-  stroke(255);
-  ellipse(-70, -7, 4, 4);
-  popMatrix();
-  noStroke();
-  */
-  
-  if (scene >= 1){
-    if (fx > 650){
-    float vx;
-    float vy;
-    vx = -5;
-    vy = 0;
-    fx += vx;
-    fy += vy;
-    FirstFish(fx, fy);
-    } 
-  if (fx <= 650){
-    FirstFish(650, fy);
-    println("boom");
-    }
-  }
- 
-  
+
   //SCENE 1
-  
+
   /*
   if (scene == 1){
-    for (int i = 0; i < s1; i++){
-      int s1x;
-      float s1y;
-      int s1r;
-      s1x = -25;
-      s1y = 340;
-      s1r = 5;
-      ManyFish(s1x+i, s1y, s1r, 1, 255);
-      s1x += 1;
-      println(s1x);
-      //s1y = 100*sin(s1y);
-      if (s1x < 340){
-        s1x += 1;
-      } else {
-        s1x = 341;
-        {
-        
-        
-    }
-  }
-    }
-  }
-  */
-  
+   for (int i = 0; i < s1; i++){
+   int s1x;
+   float s1y;
+   int s1r;
+   s1x = -25;
+   s1y = 340;
+   s1r = 5;
+   ManyFish(s1x+i, s1y, s1r, 1, 255);
+   s1x += 1;
+   println(s1x);
+   //s1y = 100*sin(s1y);
+   if (s1x < 340){
+   s1x += 1;
+   } else {
+   s1x = 341;
+   {
+   
+   
+   }
+   }
+   }
+   }
+   */
+
   //Scene 2
-  
-  if (scene >= 2){
+
+  if (scene >= 2) {
     /*for (int i = 0; i < s2; i++){
-      fill(18,170,190);
-      rect(0,0, width, height*0.65);
-      int x;
-      int y;
-      x = -500 + 5*i;
-      y = height/2;
-      drawMonster(x, y, 0.5);
-    }
-    */
-      
-      if (px < 600) {
+     fill(18,170,190);
+     rect(0,0, width, height*0.65);
+     int x;
+     int y;
+     x = -500 + 5*i;
+     y = height/2;
+     drawMonster(x, y, 0.5);
+     }
+     */
+
+    if (px < 600) {
       float vx;
       float vy;
       vx = 3;
@@ -173,42 +182,40 @@ void draw(){
       px += vx;
       py += vy;
       println(py);
-      }
-      drawMonster(px, py, 0.5);
-  } if (px > 600) {
-    drawMonster(600,py, 0.5);
-     
+    }
+    drawMonster(px, py, 0.5);
+  } 
+  if (px > 600) {
+    drawMonster(600, py, 0.5);
   }
- 
-  
-    
-  
-  
-  
-  
- /* for (int loopManyFish=0; loopManyFish < nManyFish; loopManyFish++) {
-    ManyFish(pxManyFish[loopManyFish], pyManyFish[loopManyFish], random(0, PI/20), random(0.3, 0.35), colorManyFish[loopManyFish]);
-    pxManyFish[loopManyFish] += vxManyFish[loopManyFish];
-    pyManyFish[loopManyFish] += vyManyFish[loopManyFish];
+
+  // for fish
+  fishAnimate();
+  for (int i = 0; i < fishNumber; i++) {
+    //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
+    drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
   }
-  */
-  
+
+  // for FirstFish
+  FirstFishAnimate();
+  for (int i = 0; i < FirstFishNumber; i++) {
+    //FirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
+    drawFirstFish(FirstFishLoc[i].x, FirstFishLoc[i].y, FirstFishScale[i], FirstFishRotate[i], FirstFishColor[i], 255);
+  }
 }
-
-
 
 // Seaweed Fucnctions
 
-void seaweeds(int x, int y, float scaleS, float greta){
+void seaweeds(int x, int y, float scaleS, float greta) {
   pushMatrix();
   scale(scaleS);
-  translate(x,y);
-  wave(0,0, greta/6, greta/7, greta/4, greta/5);
+  translate(x, y);
+  wave(0, 0, greta/6, greta/7, greta/4, greta/5);
   popMatrix();
 }
 
 void wave(int posX, int posY, float uheta, float aeta, float ceta, float feta) {
-  fill(12,148,110);
+  fill(12, 148, 110);
   theta+=uheta;
   zeta+=aeta;
   beta+=ceta;
@@ -218,201 +225,169 @@ void wave(int posX, int posY, float uheta, float aeta, float ceta, float feta) {
   float b = beta;
   float e = eta;
   float y;
-  if (swap == 0){
-  for (int i=0; i < 25 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, 148-i*0.5, 110-i*0.5);
-    y = sin(z)*50/2;
-    pushMatrix();
-    rotate(radians(270));
-    translate((i*5)-425+posX, y+posY+400);
-    ellipse(0,0, 25, 25);
-    popMatrix();
-    z+=50/250f;
-  }
-  for (int i=0; i < 50 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(q)*50/2;
-    pushMatrix();
-    rotate(radians(300));
-    translate((i*5)-150+posX, y+posY+580);
-    ellipse(0,0, 15, 15);
-    popMatrix();
-    q+=50/250f;
-  }
-  for (int i=0; i < 40 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(e)*50/2;
-    pushMatrix();
-    rotate(radians(240));
-    translate((i*5)-600+posX, y+posY+175);
-    ellipse(0,0, 30, 30);
-    popMatrix();
-    e+=50/250f;
-  }
-  for (int i=0; i < 40 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(b)*50/2;
-    pushMatrix();
-    rotate(radians(255));
-    translate((i*5)-525+posX, y+posY+330);
-    ellipse(0,0, 20, 20);
-    popMatrix();
-    b+=50/250f;
-    fill(random(0,40), 150-i*0.75, 110-i*0.75);
-    ellipse(posX+425, posY+410, 150,100);
-  }
-  fill(12,148,110);
-  //fill(12,148,110);
-  //ellipse(posX+425, posY+410, 150,100);
+  if (swap == 0) {
+    for (int i=0; i < 25; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, 148-i*0.5, 110-i*0.5);
+      y = sin(z)*50/2;
+      pushMatrix();
+      rotate(radians(270));
+      translate((i*5)-425+posX, y+posY+400);
+      ellipse(0, 0, 25, 25);
+      popMatrix();
+      z+=50/250f;
+    }
+    for (int i=0; i < 50; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(q)*50/2;
+      pushMatrix();
+      rotate(radians(300));
+      translate((i*5)-150+posX, y+posY+580);
+      ellipse(0, 0, 15, 15);
+      popMatrix();
+      q+=50/250f;
+    }
+    for (int i=0; i < 40; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(e)*50/2;
+      pushMatrix();
+      rotate(radians(240));
+      translate((i*5)-600+posX, y+posY+175);
+      ellipse(0, 0, 30, 30);
+      popMatrix();
+      e+=50/250f;
+    }
+    for (int i=0; i < 40; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(b)*50/2;
+      pushMatrix();
+      rotate(radians(255));
+      translate((i*5)-525+posX, y+posY+330);
+      ellipse(0, 0, 20, 20);
+      popMatrix();
+      b+=50/250f;
+      fill(random(0, 40), 150-i*0.75, 110-i*0.75);
+      ellipse(posX+425, posY+410, 150, 100);
+    }
+    fill(12, 148, 110);
+    //fill(12,148,110);
+    //ellipse(posX+425, posY+410, 150,100);
   } else if (swap == 1) { 
-    for (int i=0; i < 35 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, 148-i*0.5, 110-i*0.5);
-    y = sin(q)*50/2;
-    pushMatrix();
-    rotate(radians(270));
-    translate((i*5)-425+posX, y+posY+400);
-    ellipse(0,0, 25, 25);
-    popMatrix();
-    q+=50/250f;
-  }
-  for (int i=0; i < 35 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(z)*50/2;
-    pushMatrix();
-    rotate(radians(300));
-    translate((i*5)-150+posX, y+posY+580);
-    ellipse(0,0, 15, 15);
-    popMatrix();
-    z+=50/250f;
-  }
-  for (int i=0; i < 35 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(b)*50/2;
-    pushMatrix();
-    rotate(radians(240));
-    translate((i*5)-600+posX, y+posY+175);
-    ellipse(0,0, 30, 30);
-    popMatrix();
-    b+=50/250f;
-  }
-  for (int i=0; i < 30 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(e)*50/2;
-    pushMatrix();
-    rotate(radians(255));
-    translate((i*5)-525+posX, y+posY+330);
-    ellipse(0,0, 20, 20);
-    popMatrix();
-    e+=50/250f;
-    fill(random(0,40), 150-i*0.75, 110-i*0.75);
-    ellipse(posX+425, posY+410, 150,100);
-  }
-  fill(12,148,110);
-  //fill(12,148,110);
-  //ellipse(posX+425, posY+410, 150,100);
+    for (int i=0; i < 35; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, 148-i*0.5, 110-i*0.5);
+      y = sin(q)*50/2;
+      pushMatrix();
+      rotate(radians(270));
+      translate((i*5)-425+posX, y+posY+400);
+      ellipse(0, 0, 25, 25);
+      popMatrix();
+      q+=50/250f;
+    }
+    for (int i=0; i < 35; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(z)*50/2;
+      pushMatrix();
+      rotate(radians(300));
+      translate((i*5)-150+posX, y+posY+580);
+      ellipse(0, 0, 15, 15);
+      popMatrix();
+      z+=50/250f;
+    }
+    for (int i=0; i < 35; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(b)*50/2;
+      pushMatrix();
+      rotate(radians(240));
+      translate((i*5)-600+posX, y+posY+175);
+      ellipse(0, 0, 30, 30);
+      popMatrix();
+      b+=50/250f;
+    }
+    for (int i=0; i < 30; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(e)*50/2;
+      pushMatrix();
+      rotate(radians(255));
+      translate((i*5)-525+posX, y+posY+330);
+      ellipse(0, 0, 20, 20);
+      popMatrix();
+      e+=50/250f;
+      fill(random(0, 40), 150-i*0.75, 110-i*0.75);
+      ellipse(posX+425, posY+410, 150, 100);
+    }
+    fill(12, 148, 110);
+    //fill(12,148,110);
+    //ellipse(posX+425, posY+410, 150,100);
   } else if (swap == 2) { 
-    for (int i=0; i < 30 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, 148-i*0.5, 110-i*0.5);
-    y = sin(e)*50/2;
-    pushMatrix();
-    rotate(radians(270));
-    translate((i*5)-425+posX, y+posY+400);
-    ellipse(0,0, 25, 25);
-    popMatrix();
-    e+=50/250f;
+    for (int i=0; i < 30; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, 148-i*0.5, 110-i*0.5);
+      y = sin(e)*50/2;
+      pushMatrix();
+      rotate(radians(270));
+      translate((i*5)-425+posX, y+posY+400);
+      ellipse(0, 0, 25, 25);
+      popMatrix();
+      e+=50/250f;
+    }
+    for (int i=0; i < 25; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(b)*50/2;
+      pushMatrix();
+      rotate(radians(300));
+      translate((i*5)-150+posX, y+posY+580);
+      ellipse(0, 0, 15, 15);
+      popMatrix();
+      b+=50/250f;
+    }
+    for (int i=0; i < 40; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(z)*50/2;
+      pushMatrix();
+      rotate(radians(240));
+      translate((i*5)-600+posX, y+posY+175);
+      ellipse(0, 0, 30, 30);
+      popMatrix();
+      z+=50/250f;
+    }
+    for (int i=0; i < 35; i++) {
+      fill(random(0, 40), 150-(i*0.75), 110-(i*0.75), random(200, 255));
+      //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
+      //fill(12, (int)148-i*0.5, (int)110-i*0.5);
+      y = sin(q)*50/2;
+      pushMatrix();
+      rotate(radians(255));
+      translate((i*5)-525+posX, y+posY+330);
+      ellipse(0, 0, 20, 20);
+      popMatrix();
+      q+=50/250f;
+      fill(random(0, 40), 150-i*0.75, 110-i*0.75);
+      ellipse(posX+425, posY+410, 150, 100);
+    }
+    fill(12, 148, 110);
+    //fill(12,148,110);
+    //ellipse(posX+425, posY+410, 150,100);
   }
-  for (int i=0; i < 25 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(b)*50/2;
-    pushMatrix();
-    rotate(radians(300));
-    translate((i*5)-150+posX, y+posY+580);
-    ellipse(0,0, 15, 15);
-    popMatrix();
-    b+=50/250f;
-  }
-  for (int i=0; i < 40 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(z)*50/2;
-    pushMatrix();
-    rotate(radians(240));
-    translate((i*5)-600+posX, y+posY+175);
-    ellipse(0,0, 30, 30);
-    popMatrix();
-    z+=50/250f;
-  }
-  for (int i=0; i < 35 ;i++) {
-    fill(random(0,40), 150-(i*0.75), 110-(i*0.75), random(200,255));
-    //fill(random(0,40), (random(140,160)-i*0.75), (random(100,120)-i*0.75));
-    //fill(12, (int)148-i*0.5, (int)110-i*0.5);
-    y = sin(q)*50/2;
-    pushMatrix();
-    rotate(radians(255));
-    translate((i*5)-525+posX, y+posY+330);
-    ellipse(0,0, 20, 20);
-    popMatrix();
-    q+=50/250f;
-    fill(random(0,40), 150-i*0.75, 110-i*0.75);
-    ellipse(posX+425, posY+410, 150,100);
-  }
-  fill(12,148,110);
-  //fill(12,148,110);
-  //ellipse(posX+425, posY+410, 150,100);
-}
-}
-
-void ManyFish (float txManyFish, float tyManyFish, float rotateManyFish, float scaleManyFish, color colorManyFish) {
-
-  // [Scale, Rotate, Translate Entire Fish]
-  pushMatrix();
-  translate(txManyFish, tyManyFish);
-  rotate(rotateManyFish);
-  scale(scaleManyFish);
-
-  fill(colorManyFish);
-  noStroke();
-  // Body (made up of two triangles on two sides and one ellipse in the middle)
-  ellipse(0, 0, 197, 69); // Body | Middle
-  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
-  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
-
-  // Tails
-  pushMatrix();
-  translate(-145, 0);
-  stroke(colorManyFish);
-  strokeWeight(6);
-  line(0, 0, -37, -22);
-  line(0, 0, -37, 22);
-  popMatrix();
-
-  // Eye
-  fill(255);
-  stroke(255);
-  ellipse(72, -7, 4, 4);
-
-  popMatrix(); // END [Scale, Rotate, Translate Entire Fish]
 }
 
 void monsterwave(int posX, int posY) {
@@ -525,36 +500,124 @@ void drawMonster(int x, int y, float scaleS) {
   popMatrix();
 }
 
-void FirstFish(int x, int y){
-  pushMatrix();
-  translate(x, y);
-  scale(.5);
-   fill(200, 0, 0);
+// functions for fish
+void drawFish (float fishTranslatex, float fishTranslatey, float fishScale, float fishRotate, color fishColor, color fishEyeColor) {
+  pushMatrix(); // applies to entire fish
+  translate(fishTranslatex, fishTranslatey); // translate entire fish
+  rotate(fishRotate); // rotate entire fish
+  scale(fishScale); // scale entire fish
+
+  // Body
+  fill(fishColor);
   noStroke();
-  // Body (made up of two triangles on two sides and one ellipse in the middle)
-  ellipse(0, 0, 197, 69); // Body | Middle
-  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
-  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
-
-  // Tails
+  ellipse(0, 0, 197, 69);
+  triangle(-150, 0, -50, -30, -50, 30); // Left
+  triangle(50, -30, 150, 0, 50, 30); // Right
+  // Tail
+  stroke(fishColor);
+  strokeWeight(5);
   pushMatrix();
-  translate(-145, 0);
-  stroke(200, 0, 0);
-  strokeWeight(6);
-  line(286, 0, 320, -22);
-  line(286, 0, 320, 22);
+  translate(-150, 0);
+  rotate(radians(fishTailMove));
+  translate(150, 0);
+  line(-150, 0, -187, -25); // END Top Part of Tail
   popMatrix();
-
+  pushMatrix();
+  translate(-150, 0);
+  rotate(-radians(fishTailMove));
+  translate(150, 0);
+  stroke(fishColor);
+  line(-150, 0, -187, 25);
+  popMatrix(); // END Bottom Part of Tail
   // Eye
-  fill(255);
-  stroke(255);
-  ellipse(-70, -7, 4, 4);
-  popMatrix();
+  fill(fishEyeColor);
   noStroke();
+  ellipse(72, -7, 10, 10);
+
+  popMatrix();
 }
 
+void fishAnimate() {
+  // for Entire Fish
+  for (int i = 0; i < fishNumber; i++) {
+    fishLoc[i].x = fishLoc[i].x + fishDir[i].x*fishTime;
+    fishLoc[i].y = fishLoc[i].y + fishDir[i].y*fishTime;
+  }
+  // for Tail
+  if (fishTailMove > 35) {
+    fishTailSwitch = false;
+  } else if (fishTailMove < -30) {
+    fishTailSwitch = true;
+  }
+  if (fishTailSwitch == true) {
+    fishTailMove+=1;
+  } else {
+    fishTailMove+=-1;
+  }
+}
 
-void mousePressed(){
+// END functions for fish
+
+// functiosn for FirstFish
+
+void drawFirstFish (float FirstFishTranslatex, float FirstFishTranslatey, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor) {
+  pushMatrix(); // applies to entire FirstFish
+  translate(FirstFishTranslatex, FirstFishTranslatey); // translate entire FirstFish
+  rotate(FirstFishRotate); // rotate entire FirstFish
+  scale(FirstFishScale); // scale entire FirstFish
+
+  // Body
+  fill(FirstFishColor);
+  noStroke();
+  ellipse(0, 0, 197, 69);
+  triangle(-150, 0, -50, -30, -50, 30); // Left
+  triangle(50, -30, 150, 0, 50, 30); // Right
+  // Tail
+  stroke(FirstFishColor);
+  strokeWeight(5);
+  pushMatrix();
+  translate(-150, 0);
+  rotate(radians(FirstFishTailMove));
+  translate(150, 0);
+  line(-150, 0, -187, -25); // END Top Part of Tail
+  popMatrix();
+  pushMatrix();
+  translate(-150, 0);
+  rotate(-radians(FirstFishTailMove));
+  translate(150, 0);
+  stroke(FirstFishColor);
+  line(-150, 0, -187, 25);
+  popMatrix(); // END Bottom Part of Tail
+  // Eye
+  fill(FirstFishEyeColor);
+  noStroke();
+  ellipse(72, 10, 10, 10);
+
+  popMatrix();
+}
+
+void FirstFishAnimate() {
+  // for Entire Fish
+  for (int i = 0; i < FirstFishNumber; i++) {
+    FirstFishLoc[i].x = FirstFishLoc[i].x + FirstFishDir[i].x*FirstFishTime;
+    FirstFishLoc[i].y = FirstFishLoc[i].y + FirstFishDir[i].y*FirstFishTime;
+  }
+  // for Tail
+  if (FirstFishTailMove > 35) {
+    FirstFishTailSwitch = false;
+  } else if (FirstFishTailMove < -30) {
+    FirstFishTailSwitch = true;
+  }
+  if (FirstFishTailSwitch == true) {
+    FirstFishTailMove+=1;
+  } else {
+    FirstFishTailMove+=-1;
+  }
+}
+
+// END functions for FirstFish
+
+void mousePressed() {
   scene = scene + 1;
   println(scene);
 }
