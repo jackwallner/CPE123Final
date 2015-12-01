@@ -72,6 +72,33 @@ void draw(){
   seaweeds(-200,1040,0.5,0.03);
   //drawMonster(200, 200, 0.5);
   
+  
+  //first fish
+  pushMatrix();
+  translate(1000, 150);
+  scale(.5);
+   fill(200, 0, 0);
+  noStroke();
+  // Body (made up of two triangles on two sides and one ellipse in the middle)
+  ellipse(0, 0, 197, 69); // Body | Middle
+  triangle(-150, 0, -50, -30, -50, 30); // Body | Left
+  triangle(50, -30, 150, 0, 50, 30);  // Body | Right
+
+  // Tails
+  pushMatrix();
+  translate(-145, 0);
+  stroke(200, 0, 0);
+  strokeWeight(6);
+  line(286, 0, 320, -22);
+  line(286, 0, 320, 22);
+  popMatrix();
+
+  // Eye
+  fill(255);
+  stroke(255);
+  ellipse(-70, -7, 4, 4);
+  popMatrix();
+  noStroke();
   //SCENE 1
   
   /*
