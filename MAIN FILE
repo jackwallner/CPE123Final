@@ -411,6 +411,7 @@ void draw() {
     rect(0, wy, width, height+waterlevel+2);
     if (wy<=0) {
       wy=0;
+      bC = underwater;
     }
     //    fill(sky);
     //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
@@ -448,6 +449,22 @@ void draw() {
      swap = 0;
      seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
      */
+  }
+  if (scene >= 7){
+    
+    //bC = underwater;
+    
+    seaweeds(0, back[0], 1, 0.03);  
+    seaweeds(1000, back[1], 0.5, 0.03);
+    swap = 1;
+    seaweeds(0, back[2], 0.5, 0.03);
+    seaweeds(375, back[3], 1.5, 0.03);
+    swap = 2;
+    seaweeds(800, back[4], 0.5, 0.03);
+    seaweeds(500, back[5], 1, 0.03);
+    swap = 0;
+    seaweeds(-200, back[6], 0.5, 0.03);
+
   }
 }
 
