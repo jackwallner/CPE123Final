@@ -7,7 +7,8 @@ void setup() {
   background(18, 170, 190);
   noStroke();
   brotate = 0;
-  bpy= 595;
+  bpy= -395;
+ //bpy=295;
 }
 void mousePressed(){
   if (mouseX>0){
@@ -24,9 +25,9 @@ void draw() {
 }
 void boatPosition(){
   if (boatP==true){
-    bpy-=1;
+    bpy+=1;
   }
-  if (bpy <=295){
+  if (bpy >=295){
     boatP= false;
   }
 }
@@ -34,13 +35,13 @@ void animateBoat() {
   if (brotate <= -PI/50) {
     boatD = false;
   }
-  if (brotate > PI/50) {
+  if (brotate > random(PI/100, PI/50)) {
     boatD = true;
   }
   if (boatD ==false) {
-    brotate += radians(0.02);
+    brotate += radians(random(0.01,0.03));
   } else {
-    brotate -= radians(0.02);
+    brotate -= radians(random(0.01,0.03));
   }
 }
 
@@ -50,13 +51,21 @@ void drawBoat() {
   rotate(brotate);
   translate(-635, -295);
   fill(237,239,230);
-  beginShape();
+  beginShape(); //whiteish boatunders
   vertex(83, 476);
   vertex(800,500);
   vertex(1205, 541);
   vertex(1000,600);
   vertex( 200, 600);
-  
+  endShape();
+  fill(63, 23, 32);  //backof boat frame
+  beginShape();
+  vertex(83,476);
+  vertex(800,500);
+  vertex(1205,541);
+  vertex(1200,556);
+  vertex(805,515);
+  vertex(86,489);
   endShape();
   fill(255); //white shapes of window
   rect(403, 424, 7, 129);
@@ -99,6 +108,9 @@ void drawBoat() {
   rect(480, 429, 67, 129, 0, 10, 0, 0);
   fill(119, 48, 42); //door knob
   ellipse(495, 510, 10, 12);
+  
+  drawFisher();
+  
   fill(106, 174, 239);
   beginShape(); //bottom base
   vertex(95, 500);
@@ -127,6 +139,58 @@ void drawBoat() {
   vertex(550, 423);
   vertex(410, 424);
   vertex(266, 415);
+  endShape(CLOSE);
+  popMatrix();
+}
+void drawFisher() {
+  color skintone = color(255, 221, 166);
+  pushMatrix();
+  translate(200,100);
+  scale(0.8);
+  translate(700,450);
+  translate(-200,-100);
+  fill(129, 144, 134); //body
+  quad(160, 140, 240, 140, 260, 300, 140, 300);
+  fill(skintone);
+  ellipse(200, 100, 110, 100); //faceframe
+  triangle(200, 152, 250, 135, 255, 100); //facetri>
+  triangle(200, 152, 150, 135, 145, 100); //facetri<
+  fill(100, 81, 66);
+  ellipse(169, 100, 49, 49); //glasses<
+  ellipse(231, 100, 49, 49); //glasses>
+  rect(169+22, 100, 20, 7);//glasses connection
+  fill(skintone);
+  ellipse(169, 100, 35, 35); //glasses block
+  ellipse(231, 100, 35, 35);
+  fill(73, 57, 46);
+  arc(170, 98, 25, 28, 0, PI); //<eyeframe toppp
+  arc(230, 98, 25, 28, 0, PI);
+  fill(250);
+  arc(170, 100, 25, 28, 0, PI); //<eye
+  arc(230, 100, 25, 28, 0, PI); //>eye
+  fill(169, 140, 123);
+  quad(195, 119-3, 200, 117-3, 200, 123-3, 195, 123-3); //nose<
+  quad(205, 119-3, 200, 117-3, 200, 123-3, 205, 123-3); //nose>
+  arc(200, 140, 36, 28, -PI, 0); //mouth
+  fill(skintone);
+  arc(200, 142, 36, 28, -PI, 0); //mouth cover
+
+  fill(73, 57, 46); //eyeballs
+  arc(171, 100, 16, 15, 0, PI);
+  arc(229, 100, 16, 15, 0, PI);
+  rect(155, 90, 27, 4);
+  rect(218, 90, 27, 4);
+
+  fill(188, 152, 146); //hatbeanie
+  rect(145, 68, 110, 20, 5, 5, 0, 0);
+  arc(200, 75, 100, 70, PI, TWO_PI);
+  //scarf
+  rect(151, 137, 100, 17, 5, 0, 5, 0);
+  beginShape();
+  vertex(230, 145);
+  vertex(245, 145);
+  vertex(250, 200);
+  vertex(235, 200);
   endShape(CLOSE);
   popMatrix();
 }
