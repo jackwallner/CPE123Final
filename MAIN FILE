@@ -80,7 +80,7 @@ void setup() {
   swap = 0;
   scene = 0;
   fx = width*1.15;
-  fy = height/2-100;
+  fy = height/2-120;
   px = -800;
   py = height/2;
   wy = -100;
