@@ -294,18 +294,19 @@ void draw() {
      }
      */
 
-    if (px < 600) {
+    if (px < 300) {
       float vx;
       float vy;
       vx = 6;
-      vy = 1*sin(radians(359));
+      vy = -1;
+      //vy = 1*sin(radians(359));
       px += vx;
       py += vy;
       //println(px);
       drawMonster(px, py, 0.5);
     }
-  if (px >= 600) {
-    drawMonster(600, py, 0.5);
+  if (px >= 300) {
+    drawMonster(300, py, 0.5);
     //println("done");
   }
   }
@@ -319,10 +320,10 @@ void draw() {
     }
   
 
-  if (px >= 600) {
+  if (px >= 300) {
     float vx;
     float vy;
-    vx = 3;
+    vx = 4;
     vy = 1*sin(radians(359));
     px += vx * 2;
     py += vy;
