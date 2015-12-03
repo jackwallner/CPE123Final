@@ -19,7 +19,6 @@ float FirstFishEyeMove = 0, FirstFishTailMove = 0;
 boolean FirstFishTailSwitch = false;
 boolean FirstFishAnimate = false;
 float fx, fy;
-int FirstFishPX;
 // for seaweeds
 float theta=0.0;
 float zeta=0.0;
@@ -245,25 +244,25 @@ void draw() {
       fx += vx;
       fy += vy;
 
-      drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+      drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
 
       //if (fy < 100) {
       //  vy = 1;
       //  fy += vy;
-      //  drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+      //  drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
       //}
 
       //if (fy > 500) {
       //  vy = -1;
       //  fy += vy;
-      //        drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+      //        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
       //}
     }
 
 
     if (fx <= 700) {
       if (scene <= 2) {
-        drawFirstFish(700, fy, -1, 0, #C80000, 255);
+        drawFirstFish(700, fy, -0.75, 0, #C80000, 255);
       }
       if (scene >= 3) {
         float vx;
@@ -281,7 +280,7 @@ void draw() {
         fx += vx;
         fy += vy;
 
-        drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
       }
     }
   }
@@ -351,9 +350,9 @@ void draw() {
 
       rect(0, wy, width, height+waterlevel);
 
-     // fill(sky);
+      // fill(sky);
 
-     // rect(0, wy-(height+waterlevel), width, height+waterlevel);
+      // rect(0, wy-(height+waterlevel), width, height+waterlevel);
       bC = sky;
 
 
@@ -373,8 +372,8 @@ void draw() {
     } else {
       fill(underwater);
       rect(0, wy, width, height+waterlevel);
-    //  fill(sky);
-    //  rect(0, wy-(height+waterlevel), width, height+waterlevel);
+      //  fill(sky);
+      //  rect(0, wy-(height+waterlevel), width, height+waterlevel);
     }
   }
 
@@ -391,32 +390,31 @@ void draw() {
     }
     if (bpy >=210) {
       bpy=210;
-    } 
-
+    }
   }
- //SCENE 5 WHEN CLICK FISHER, NET DROPS (NOT DONE YET)
- if (scene ==5){
- }
-      
-  
-  
+  //SCENE 5 WHEN CLICK FISHER, NET DROPS (NOT DONE YET)
+  if (scene ==5) {
+  }
+
+
+
   //SCENE 6 TRANSITION BACK UNDERWATER
   if (scene == 6) {
-      boatP=false;
-      if (boatP ==false){
-        bpy -= 2;
-      }
+    boatP=false;
+    if (boatP ==false) {
+      bpy -= 2;
+    }
     float vy;
     vy = -2;
     fill(underwater);
     wy += vy;
     rect(0, wy, width, height+waterlevel+2);
-    if (wy<=0){
+    if (wy<=0) {
       wy=0;
     }
-//    fill(sky);
- //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
-   // bC = underwater;
+    //    fill(sky);
+    //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
+    // bC = underwater;
 
 
     for (int i = 0; i < 7; i++) {
@@ -451,7 +449,7 @@ void draw() {
      seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
      */
   }
-} // bracket to end void draw()
+}
 
 // Seaweed Fucnctions
 
@@ -805,10 +803,7 @@ void fishAnimate() {
   }
 }
 
-// END functions for fish
-
 // functions for FirstFish
-
 void drawFirstFish (float FirstFishTranslateX, float FirstFishTranslateY, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor) {
   pushMatrix(); // applies to entire FirstFish
 
@@ -1024,16 +1019,11 @@ void animateBoat() {
     boatD = true;
   }
   if (boatD ==false) {
-    brotate += radians(random(0.01,0.03));
+    brotate += radians(random(0.01, 0.03));
   } else {
-    brotate -= radians(random(0.01,0.03));
+    brotate -= radians(random(0.01, 0.03));
   }
 }
-
-
-
-
-// END functions for FirstFish
 
 void mousePressed() {
   scene = scene + 1;
