@@ -48,6 +48,23 @@ float FirstFishRotate[];
 color FirstFishColor[];
 color FirstFishEyeColor[];
 
+//background color
+
+color underwater;
+color sky;
+color bC;
+
+// Declare Arrays for seaweed
+
+int sweedY[];
+int sweedYback[];
+int back[];
+
+//moving above water
+
+float wy;
+int waterlevel;
+
 //Setup Function
 void setup() {
   size(1280, 720);
@@ -61,6 +78,7 @@ void setup() {
   fy = height/2-100;
   px = -800;
   py = height/2;
+  wy = -100;
 
   // initializing arrays for fish 
   fishLoc = new PVector[fishNumber];
@@ -95,14 +113,53 @@ void setup() {
     FirstFishColor[i] = color(200, 0, 0);
     FirstFishEyeColor[i] = color(255);
   }
+  
+  //seaweed transition vectors
+  sweedY = new int[7];
+  sweedY[0] = 320;
+  sweedY[1] = 1040;
+  sweedY[2] = 1040;
+  sweedY[3] = 80;
+  sweedY[4] = 1040;
+  sweedY[5] = 320;
+  sweedY[6] = 1040;
+  
+  sweedYback = new int[7];
+  sweedYback[0] = 320;
+  sweedYback[1] = 1040;
+  sweedYback[2] = 1040;
+  sweedYback[3] = 80;
+  sweedYback[4] = 1040;
+  sweedYback[5] = 320;
+  sweedYback[6] = 1040;
+  
+  back = new int[7]; 
+   for (int i = 0; i < 7; i++){
+     back[i] = sweedYback[i] + 500;
+   }
+  
+  //background colors
+  
+  underwater = color(18, 170, 190);
+  sky = color(255);
+  
+  //water
+  
+  waterlevel = 200;
+  
+  
+  
 }
+
 
 //Draw Function
 void draw() {
-  background(18, 170, 190);
+  background(bC);
   noStroke();
   //Seaweed, feel free to play around and move it accordingly
   swap = 0;
+  if ((scene >= 0) && (scene < 4)){
+  bC = underwater;
   seaweeds(0, 320, 1, 0.03);  
   seaweeds(1000, 1040, 0.5, 0.03);
   swap = 1;
@@ -113,6 +170,7 @@ void draw() {
   seaweeds(500, 320, 1, 0.03);
   swap = 0;
   seaweeds(-200, 1040, 0.5, 0.03);
+  }
   //drawMonster(200, 200, 0.5);
 
 
@@ -164,12 +222,19 @@ void draw() {
   // Scene 1 (first fish appears)
   if (scene >= 1) {
     FirstFishAnimate();
-  }
-  if (fx > 600) {
+  
+  if (fx > 700) {
     float vx;
     float vy;
     vx = -3;
     vy = 0;
+    /*
+    if (fy > 200){
+    vy = sin(1);
+    } else if ((fy > 300) && (fy > 200)){
+      vy = sin(-1);
+    }
+    */
     //vy = -1;
     fx += vx;
     fy += vy;
@@ -189,11 +254,32 @@ void draw() {
     //}
     
   }
+  
 
-  if (fx <= 600) {
-    drawFirstFish(600, fy, -1, 0, #C80000, 255);
+  if (fx <= 700) {
+    if (scene <= 2){
+    drawFirstFish(700, fy, -1, 0, #C80000, 255);
   }
+    if (scene >= 3){
+       float vx;
+    float vy;
+    vx = -3;
+    vy = 0;
+    /*
+    if (fy > 200){
+    vy = sin(1);
+    } else if ((fy > 300) && (fy > 200)){
+      vy = sin(-1);
+    }
+    */
+    //vy = -1;
+    fx += vx;
+    fy += vy;
 
+    drawFirstFish(fx, fy, -1, 0, #C80000, 255);
+  }
+  }
+  }
 
   //Scene 2 (sea monster appears)
   if (scene == 2) {
@@ -215,12 +301,12 @@ void draw() {
       vy = 1*sin(radians(359));
       px += vx;
       py += vy;
-      println(px);
+      //println(px);
       drawMonster(px, py, 0.5);
     }
   if (px >= 600) {
     drawMonster(600, py, 0.5);
-    println("done");
+    //println("done");
   }
   }
 
@@ -243,6 +329,103 @@ void draw() {
     drawMonster(px, py, 0.5);
   }
   }
+  
+  
+  // SCENE 4 TRANSITION ABOVE WATER
+  
+  if ((scene == 4) || (scene == 5)){
+    
+    int vy;
+    vy = 2;
+    
+    fill(underwater);
+    
+    if (wy < height - waterlevel){
+    wy += vy;
+    
+    rect(0, wy, width, height+waterlevel);
+    
+    fill(sky);
+    
+    rect(0, wy-(height+waterlevel), width, height+waterlevel);
+    bC = sky;
+    
+    
+    
+    for (int i = 0; i < 7; i++){
+      sweedY[i] += vy;
+    }
+    seaweeds(0, sweedY[0], 1, 0.03);  
+    seaweeds(1000, sweedY[1], 0.5, 0.03);
+    swap = 1;
+    seaweeds(0, sweedY[2], 0.5, 0.03);
+    seaweeds(375, sweedY[3], 1.5, 0.03);
+    swap = 2;
+    seaweeds(800, sweedY[4], 0.5, 0.03);
+    seaweeds(500, sweedY[5], 1, 0.03);
+    swap = 0;
+    seaweeds(-200, sweedY[6], 0.5, 0.03);
+    } else {
+      fill(underwater);
+      rect(0, wy, width, height+waterlevel);
+      fill(sky);
+      rect(0, wy-(height+waterlevel), width, height+waterlevel);
+    }
+  }
+ 
+ //SCENE 5 WITH BOAT
+ 
+ 
+ //SCENE 6 TRANSITION BACK UNDERWATER
+ if (scene == 6){
+   
+   float vy;
+   vy = -2;
+   fill(underwater);
+   wy += vy;
+   rect(0, wy, width, height+waterlevel);
+   fill(sky);
+   rect(0, wy-(height+waterlevel), width, height+waterlevel);
+   bC = underwater;
+   
+   
+   for (int i = 0; i < 7; i++){
+     if (back[i] > sweedYback[i]){
+       back[i] += vy;
+   }
+   }
+   
+   
+    seaweeds(0, back[0], 1, 0.03);  
+    seaweeds(1000, back[1], 0.5, 0.03);
+    swap = 1;
+    seaweeds(0, back[2], 0.5, 0.03);
+    seaweeds(375, back[3], 1.5, 0.03);
+    swap = 2;
+    seaweeds(800, back[4], 0.5, 0.03);
+    seaweeds(500, back[5], 1, 0.03);
+    swap = 0;
+    seaweeds(-200, back[6], 0.5, 0.03);
+   
+   
+   /*
+    seaweeds(0, sweedYback[0] + 500, 1, 0.03);  
+    seaweeds(1000, sweedYback[1] + 500, 0.5, 0.03);
+    swap = 1;
+    seaweeds(0, sweedYback[2] + 500, 0.5, 0.03);
+    seaweeds(375, sweedYback[3] + 500, 1.5, 0.03);
+    swap = 2;
+    seaweeds(800, sweedYback[4] + 500, 0.5, 0.03);
+    seaweeds(500, sweedYback[5] + 500, 1, 0.03);
+    swap = 0;
+    seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
+    */
+   
+   
+   
+   
+ }
+    
 } // bracket to end void draw()
 
 // Seaweed Fucnctions
@@ -656,6 +839,11 @@ void FirstFishAnimate() {
     FirstFishTailMove+=-1;
   }
 }
+
+
+  
+
+  
 
 // END functions for FirstFish
 
