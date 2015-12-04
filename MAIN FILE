@@ -69,6 +69,10 @@ int back[];
 float wy;
 int waterlevel;
 
+// net;
+
+float nx;
+
 //Setup Function
 void setup() {
   size(1280, 720);
@@ -154,17 +158,27 @@ void setup() {
   //water
 
   waterlevel = 200;
+  
+  nx = 1;
 }
 
 
 //Draw Function
 void draw() {
-  background(bC);
+  
+  if (scene == -1){
+    bC = underwater;
+    background(bC);
+    nx = nx + 0.01*nx;
+    net(width/2, height/2, nx);
+  }
+ 
   noStroke();
   //Seaweed, feel free to play around and move it accordingly
   swap = 0;
   if ((scene >= 0) && (scene < 4)) {
     bC = underwater;
+    background(bC);
     seaweeds(0, 320, 1, 0.03);  
     seaweeds(1000, 1040, 0.5, 0.03);
     swap = 1;
@@ -225,7 +239,7 @@ void draw() {
    */
 
   // Scene 1 (first fish appears)
-  if (scene >= 1) {
+  if ((scene >= 1) && (scene <= 4)){
     FirstFishAnimate();
 
     if (fx > 700) {
@@ -298,9 +312,9 @@ void draw() {
      }
      */
 
-fill(255);
-textSize(40);
-text("!!", 650, 200);
+      fill(255);
+      textSize(40);
+      text("!!", 650, 200);
     if (px < -100) {
       float vx;
       float vy;
@@ -319,7 +333,7 @@ text("!!", 650, 200);
   }
 
   // Scene 3 (bunch of fish come out after sea monster)
-  if (scene >= 3) {
+  if ((scene >= 3) && (scene <= 5)) {
     fishAnimate();
     for (int i = 0; i < fishNumber; i++) {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
@@ -327,7 +341,7 @@ text("!!", 650, 200);
     }
 
 
-    if (px >= -100) {
+    //if (px >= -100) {
       float vx;
       float vy;
       vx = 4;
@@ -335,7 +349,7 @@ text("!!", 650, 200);
       px += vx * 2;
       py += vy;
       drawMonster(px, py, 0.5);
-    }
+    //}
   }
 
 
@@ -1049,4 +1063,24 @@ void animateBoat() {
 void mousePressed() {
   scene = scene + 1;
   println(scene);
+}
+
+void net(int x, int y, float size){
+  pushMatrix();
+  translate(x,y);
+  scale(size);
+  noFill();
+  stroke(0);
+  strokeWeight(1);
+  rect(0,0,50,50);
+  rect(10,0,0,50);
+  rect(20,0,0,50);
+  rect(30,0,0,50);
+  rect(40,0,0,50);
+  rect(0,10,50,0);
+  rect(0,20,50,0);
+  rect(0,30,50,0);
+  rect(0,40,50,0);
+  popMatrix();
+  
 }
