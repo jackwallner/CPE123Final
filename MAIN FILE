@@ -72,7 +72,12 @@ int waterlevel;
 // net;
 
 float nx;
-
+    float netRotate=0;
+    int nety = height/2;
+int netx = width/2;
+    
+    
+    
 //Setup Function
 void setup() {
   size(1280, 720);
@@ -170,7 +175,7 @@ void draw() {
     bC = underwater;
     background(bC);
     nx = nx + 0.01*nx;
-    net(width/2, height/2, nx);
+    net(width/2, height/2, nx,0);
   }
 
   noStroke();
@@ -414,6 +419,14 @@ void draw() {
   }
   //SCENE 5 WHEN CLICK FISHER, NET DROPS (NOT DONE YET)
   if (scene ==5) {
+/*
+    net(netx, nety, 2, netRotate);
+    for (int i = 0; i<200; i++){
+      netRotate +=1;
+      nety-=0.5;
+      
+    }
+    */
   }
 
 
@@ -1073,10 +1086,13 @@ void mousePressed() {
   println(scene);
 }
 
-void net(int x, int y, float size) {
+void net(int x, int y, float size, float netR) {
   pushMatrix();
+  translate(25,25);
   translate(x, y);
   scale(size);
+  rotate(radians(netR));
+  translate(-25,-25);
   noFill();
   stroke(0);
   strokeWeight(1);
