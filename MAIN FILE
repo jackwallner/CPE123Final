@@ -298,7 +298,10 @@ void draw() {
      }
      */
 
-    if (px < 300) {
+fill(255);
+textSize(40);
+text("!!", 650, 200);
+    if (px < -100) {
       float vx;
       float vy;
       vx = 6;
@@ -309,8 +312,8 @@ void draw() {
       //println(px);
       drawMonster(px, py, 0.5);
     }
-    if (px >= 300) {
-      drawMonster(300, py, 0.5);
+    if (px >= -100) {
+      drawMonster(-100, py, 0.5);
       //println("done");
     }
   }
@@ -324,7 +327,7 @@ void draw() {
     }
 
 
-    if (px >= 300) {
+    if (px >= -100) {
       float vx;
       float vy;
       vx = 4;
@@ -758,8 +761,9 @@ void monsterwave(int posX, int posY) {
 
 void drawMonster(int x, int y, float scaleS) {
   pushMatrix();
-  scale(scaleS);
-  translate(x, y);
+  translate(-500, -280);
+  scale(1);
+  translate(x+400, y);
   monsterwave(0, 0);
   popMatrix();
 }
