@@ -359,7 +359,7 @@ void draw() {
 
     int vy;
     vy = 2;
-
+    background(bC);
     fill(underwater);
 
     if (wy < height - waterlevel) {
@@ -367,7 +367,7 @@ void draw() {
 
       rect(0, wy, width, height+waterlevel);
 
-      // fill(sky);
+      //fill(sky);
 
       // rect(0, wy-(height+waterlevel), width, height+waterlevel);
       bC = sky;
@@ -395,8 +395,9 @@ void draw() {
   }
 
   //SCENE 5 WITH BOAT
-  if (scene == 4 || scene ==5 || scene ==6) {
+  if (scene == 4 || scene ==5) {
     boatP=true;
+
     drawBoat();
     animateBoat();
     //boats position
@@ -405,6 +406,8 @@ void draw() {
     } else {
       bpy -= 2;
     }
+  }
+  if (scene == 4||scene ==5){
     if (bpy >=210) {
       bpy=210;
     }
@@ -417,10 +420,8 @@ void draw() {
 
   //SCENE 6 TRANSITION BACK UNDERWATER
   if (scene == 6) {
-    boatP=false;
-    if (boatP ==false) {
-      bpy -= 2;
-    }
+      
+    background(bC);
     float vy;
     vy = -2;
     fill(underwater);
@@ -430,6 +431,14 @@ void draw() {
       wy=0;
       bC = underwater;
     }
+    boatP=false;
+
+    drawBoat();
+    animateBoat();
+    //boats position
+    if (boatP==false) {
+      bpy-=2;
+    } 
     //    fill(sky);
     //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
     // bC = underwater;
