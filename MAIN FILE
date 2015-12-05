@@ -5,6 +5,17 @@ int scene;
 int s1;
 int s2;
 
+// stuff for bubbles
+int bubblesNumber = 500;
+float bubblesTime = 1;
+PVector bubblesLoc[];
+PVector bubblesDir[];
+float bubblesScale[];
+float bubblesRotate[];
+color bubblesStrokeColor[];
+color bubblesColor[];
+float bubblesDiameter[];
+
 /* DECLARE VARIABLES */
 // for fish
 int fishNumber = 20;
@@ -109,6 +120,24 @@ void setup() {
   bpy= -425;
 
 
+  // initializing arrays for bubbles 
+  bubblesLoc = new PVector[bubblesNumber];
+  bubblesDir = new PVector[bubblesNumber];
+  bubblesScale = new float[bubblesNumber];
+  bubblesRotate = new float[bubblesNumber];
+  bubblesColor = new color[bubblesNumber];
+  bubblesStrokeColor = new color[bubblesNumber];
+  bubblesDiameter = new float[bubblesNumber];
+  for (int i = 0; i < bubblesNumber; i++) {
+    bubblesLoc[i] = new PVector(random(-200, width+200), height+20);
+    bubblesDir[i] = new PVector(random(-0.2, 0.2), random(-1.5, -0.05));
+    bubblesScale[i] = random(1.5, 4.5);
+    //bubblesRotate[i] = random(radians(-30), radians(30));
+    bubblesColor[i] = color(random(92, 115), random(220, 255), random(240, 255), random(30, 100));
+    bubblesStrokeColor[i] = color(random(92, 115), random(220, 255), random(240, 255), random(5, 25));
+    //bubblesDiameter[i] = random(40, 75);
+  }
+
   // initializing arrays for fish 
   fishLoc = new PVector[fishNumber];
   fishDir = new PVector[fishNumber];
@@ -142,6 +171,8 @@ void setup() {
     FirstFishColor[i] = color(200, 0, 0);
     FirstFishEyeColor[i] = color(255);
   }
+
+
 
   //seaweed transition vectors
   sweedY = new int[7];
@@ -306,6 +337,11 @@ void draw() {
       //}
     }
 
+    // stuff for bubbles
+    bubblesAnimate();
+    for (int i = 0; i < bubblesNumber; i++) {
+      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+    } 
 
     if (fx <= 700) {
       if (scene <= 2) {
@@ -330,6 +366,8 @@ void draw() {
       }
     }
   }
+
+
 
   //Scene 2 (sea monster appears)
   if (scene == 2) {
@@ -384,6 +422,7 @@ void draw() {
     drawMonster(px, py, 0.5);
     //}
   }
+
 
 
   // SCENE 4 TRANSITION ABOVE WATER
@@ -827,6 +866,30 @@ void drawMonster(int x, int y, float scaleS) {
   monsterwave(0, 0);
   popMatrix();
 }
+
+// functions for bubbles
+void drawBubbles (float bubblesTranslateX, float bubblesTranslateY, float bubblesScale, float bubblesRotate, color bubblesColor, color bubblesStrokeColor, float bubblesDiameter) {
+  pushMatrix();
+  translate(bubblesTranslateX, bubblesTranslateY);
+  //rotate(bubblesRotate);
+  scale(bubblesScale);
+  stroke(bubblesStrokeColor);
+  fill(bubblesColor);
+  ellipse(0, 0, 10, 10);
+  //noStroke();
+  //noFill();
+  //ellipse(2, 2, random(31, 51), random(31, 51));
+  popMatrix();
+}
+
+void bubblesAnimate () {
+  for (int i = 0; i < bubblesNumber; i++) {
+    bubblesLoc[i].x = bubblesLoc[i].x + bubblesDir[i].x*bubblesTime;
+    bubblesLoc[i].y = bubblesLoc[i].y + bubblesDir[i].y*bubblesTime;
+  }
+}
+
+
 
 // functions for fish
 void drawFish (float fishTranslateX, float fishTranslateY, float fishScale, float fishRotate, color fishColor, color fishEyeColor) {
