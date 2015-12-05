@@ -6,7 +6,7 @@ int s1;
 int s2;
 
 // stuff for bubbles
-int bubblesNumber = 500;
+int bubblesNumber = 150;
 float bubblesTime = 1;
 PVector bubblesLoc[];
 PVector bubblesDir[];
@@ -129,7 +129,7 @@ void setup() {
   bubblesStrokeColor = new color[bubblesNumber];
   bubblesDiameter = new float[bubblesNumber];
   for (int i = 0; i < bubblesNumber; i++) {
-    bubblesLoc[i] = new PVector(random(-200, width+200), height+20);
+    bubblesLoc[i] = new PVector(random(-20, width+20), height+20);
     bubblesDir[i] = new PVector(random(-0.2, 0.2), random(-1.5, -0.05));
     bubblesScale[i] = random(1.5, 4.5);
     //bubblesRotate[i] = random(radians(-30), radians(30));
