@@ -52,6 +52,10 @@ float FirstFishRotate[];
 color FirstFishColor[];
 color FirstFishEyeColor[];
 
+
+
+  float vx=-5;
+      float vy=0;
 //background color
 
 color underwater;
@@ -272,10 +276,10 @@ void draw() {
     FirstFishAnimate();
 
     if (fx > 700) {
-      float vx;
-      float vy;
-      vx = -3;
-      vy = 0;
+     /* float vx=-5;
+      float vy=0;
+      vx = -5;
+      vy = 0; */
       /*
     if (fy > 200){
        vy = sin(1);
@@ -308,9 +312,7 @@ void draw() {
         drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
       }
       if (scene >= 3) {
-        float vx;
-        float vy;
-        vx = -3;
+        vx +=3;
         vy = 0;
         /*
     if (fy > 200){
