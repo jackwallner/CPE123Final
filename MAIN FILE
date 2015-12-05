@@ -263,7 +263,7 @@ void draw() {
       fx += vx;
       fy += vy;
 
-      drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
+      drawFirstFish(fx, fy, -0.75, 0, #C80000, 255, 10);
 
       //if (fy < 100) {
       //  vy = 1;
@@ -281,7 +281,7 @@ void draw() {
 
     if (fx <= 700) {
       if (scene <= 2) {
-        drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, 255);
+        drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
       }
       if (scene >= 3) {
         float vx;
@@ -299,7 +299,7 @@ void draw() {
         fx += vx;
         fy += vy;
 
-        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
+        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255, 10);
       }
     }
   }
@@ -427,7 +427,6 @@ void draw() {
     netx-=3;
     nety+=6;
     netScale+=0.05;
-    
   }
 
 
@@ -861,7 +860,7 @@ void fishAnimate() {
 }
 
 // functions for FirstFish
-void drawFirstFish (float FirstFishTranslateX, float FirstFishTranslateY, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor) {
+void drawFirstFish (float FirstFishTranslateX, float FirstFishTranslateY, float FirstFishScale, float FirstFishRotate, color FirstFishColor, color FirstFishEyeColor, float FirstFishEyeDiameter) {
   pushMatrix(); // applies to entire FirstFish
 
   translate(FirstFishTranslateX, FirstFishTranslateY); // translate entire FirstFish
@@ -893,7 +892,7 @@ void drawFirstFish (float FirstFishTranslateX, float FirstFishTranslateY, float 
   // Eye
   fill(FirstFishEyeColor);
   noStroke();
-  ellipse(72, 10, 10, 10);
+  ellipse(72, 10, FirstFishEyeDiameter, FirstFishEyeDiameter);
 
   popMatrix();
 }
