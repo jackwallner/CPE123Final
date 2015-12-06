@@ -30,18 +30,24 @@ Edit # | Name  | Start Time and Date | Upload Time and Date | What You Changed
 26 | Thang | 8:20 p.m. at 12/4 | 10:21 p.m. at 12/4 | Created the bubbles for the background and a simple animation for them 
 27 | Thang | 3:20 p.m. at 12/5 | 3:25 p.m. at 12/5 | Reduced the number of bubbles from 500 to 150 to help with lag
 28 | Kayleigh | 7:14 pm at 12/5 | 7:44 pm at 12/5 | added text telling user to click
-29 | Jennifer | 9:53 pm at 12/5 | --in progress--
+29 | Jennifer | 9:53 pm at 12/5 | 11:35 pm at 12/5 | net now underwater ready for fishes under
 
 
 *[done] import jennifer’s fish - jennifer - 5:00 pm on 12/4
 *[done] add y axis movement to the fish - jennifer - 5:00 pm on 12/4
-* fisherman arms and [done] net toss with sin function - jennifer - 11:59 pm  on 12/4
-* net animation and underwater - jennifer - 12:00 pm on 12/5
-* background fish - jennifer - 12:00 pm on 12/5
-* scale the fish eyes - thang - 11:59 pm on 12/4
+* fisherman arms and [done]net toss with sin function - jennifer - 11:59 pm  on 12/4
+*[done] net animation and underwater - jennifer - 12:00 pm on 12/5
+*[postponed] background fish - jennifer - 12:00 pm on 12/5 >> 12/8
+*[done]scale the fish eyes - thang - 11:59 pm on 12/4
 * add more dialogue - story mode text and [done] telling the user to click - kayleigh - 11:59 pm on 12/4
 * freeing the fish from the net - kayleigh - 11:59 pm on 12/7
 * fish has the sword - kayleigh - 11:59 pm on 12/7
-* make the fish go backwards when sea monster approaches - jack - 11:59 pm on 12/4
+*[done]make the fish go backwards when sea monster approaches - jack - 11:59 pm on 12/4
 * bubbles - thang - 11:59 pm on 12/4
 * hearts - thang - 11:59 pm on 12/5
+
+jennifer's todolist
+-animate arms of fisherman
+-make ship better
+-do top of ocean setting
+-make 1st fish rotate?
