@@ -92,6 +92,8 @@ float netScale=0;
 int nety=420;
 int netx=740;
 
+     int timefornet = 0;
+
 // new fishes;
 int numFish=20;
 int fpx[], fpy[];
@@ -233,7 +235,7 @@ void draw() {
     bC = underwater;
     background(bC);
     nx = nx + 0.01*nx;
-    net(width/2, height/2, nx, 0);
+   // net(width/2, height/2, nx, 0);
   }
 
   noStroke();
@@ -258,6 +260,13 @@ void draw() {
     fill(255);
     textSize(40);
     text("Click anywhere to start!", 25, 50);
+  }
+  if  (scene>=0 && scene<=4) {
+    // stuff for bubbles
+    bubblesAnimate();
+    for (int i = 0; i < bubblesNumber; i++) {
+      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+    }
   }
 
   //drawMonster(200, 200, 0.5);
@@ -343,13 +352,13 @@ void draw() {
       //        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
       //}
     }
-
+    /*
     // stuff for bubbles
-    bubblesAnimate();
-    for (int i = 0; i < bubblesNumber; i++) {
-      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-    } 
-
+     bubblesAnimate();
+     for (int i = 0; i < bubblesNumber; i++) {
+     drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+     } 
+     */
     if (fx <= 700) {
       if (scene <= 2) {
         drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
@@ -510,8 +519,8 @@ void draw() {
     }
   }
   if (scene == 4||scene ==5) {
-    if (bpy >=210) {
-      bpy=210;
+    if (bpy >=200) {
+      bpy=200;
     }
   }
   //SCENE 5 WHEN CLICK FISHER, NET DROPS (NOT DONE YET)
@@ -548,6 +557,9 @@ void draw() {
     //boats position
     if (boatP==false) {
       bpy-=2;
+      if (bpy<=-20){
+        bpy-=.3;
+      }
     } 
     //    fill(sky);
     //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
@@ -561,6 +573,8 @@ void draw() {
     }
 
 
+   
+    
     seaweeds(0, back[0], 1, 0.03);  
     seaweeds(1000, back[1], 0.5, 0.03);
     swap = 1;
@@ -572,7 +586,17 @@ void draw() {
     swap = 0;
     seaweeds(-200, back[6], 0.5, 0.03);
 
+ /*for (int i=0; i<51; i+=1) {
+      timefornet++;
+    }
 
+    if (timefornet >=50) {*/
+      net(netx, nety, netScale, netRotate);
+
+
+      netScale=3;
+      netx=500;
+      nety=back[3]+250;
     /*
     seaweeds(0, sweedYback[0] + 500, 1, 0.03);  
      seaweeds(1000, sweedYback[1] + 500, 0.5, 0.03);
@@ -585,6 +609,8 @@ void draw() {
      swap = 0;
      seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
      */
+
+
   }
   if (scene >= 7) {
 
