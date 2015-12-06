@@ -253,6 +253,13 @@ void draw() {
     swap = 0;
     seaweeds(-200, 1040, 0.5, 0.03);
   }
+
+  if ((scene <= 0)) {
+    fill(255);
+    textSize(40);
+    text("Click anywhere to start!", 25, 50);
+  }
+
   //drawMonster(200, 200, 0.5);
 
 
@@ -365,12 +372,22 @@ void draw() {
         //drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
       }
     }
+
+    if (fx <= 700) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
+    }
   }
 
 
 
   //Scene 2 (sea monster appears)
   if (scene == 2) {
+    fill(bC);
+    textSize(40);
+    text("Click!", 25, 50);
+
     /*for (int i = 0; i < s2; i++){
      fill(18,170,190);
      rect(0,0, width, height*0.65);
@@ -400,6 +417,11 @@ void draw() {
       drawMonster(-100, py, 0.5);
       //println("done");
     }
+    if (px >=-100) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
+    }
   }
 
   // Scene 3 (bunch of fish come out after sea monster)
@@ -421,6 +443,12 @@ void draw() {
     py += vy;
     drawMonster(px, py, 0.5);
     //}
+
+    if (px >= 1500) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
+    }
   }
 
 
@@ -460,6 +488,11 @@ void draw() {
       rect(0, wy, width, height+waterlevel);
       //  fill(sky);
       //  rect(0, wy-(height+waterlevel), width, height+waterlevel);
+    }
+    if (wy >= 520) {
+      fill(18, 170, 190);
+      textSize(40);
+      text("Click!", 25, 50);
     }
   }
 
