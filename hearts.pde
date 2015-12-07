@@ -1,3 +1,5 @@
+// make sure to have heart.png in the same folder
+
 PImage heart0;
 
 int heartNumber = 50;
