@@ -877,7 +877,11 @@ void monsterwave(int posX, int posY) {
     if (i > 98) {
       fill(255, 255, 0);
       translate(-470, -265);
-      triangle(470, 250, 470, 270, 490, 260);
+      ellipse(475, 260, 15, 15);
+      stroke(0);
+      line(465, 245, 485, 255);
+      //triangle(470, 250, 470, 270, 490, 260);
+      noStroke();
       fill(0);
       ellipse(479, 260, 8, 10);
 
