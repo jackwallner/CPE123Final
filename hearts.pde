@@ -1,4 +1,4 @@
-// make sure to have heart.png in the same folder
+// make sure to have heart.png (http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png) in the same folder
 
 PImage heart0;
 
