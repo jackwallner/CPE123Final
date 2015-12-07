@@ -1130,6 +1130,9 @@ void drawBoat() {
   vertex(805, 515);
   vertex(86, 489);
   endShape();
+  //windowsglass
+  fill(255, 30);
+  quad(237, 420, 500, 410, 500, 510, 250, 481);
   fill(255); //white shapes of window
   rect(403, 424, 7, 129);
   rect(266, 423, 200, 7);
@@ -1139,13 +1142,13 @@ void drawBoat() {
   vertex(403, 436);
   vertex(358, 435);
   vertex(350, 439);
-  vertex(347, 499);
-  vertex(353, 505);
-  vertex(403, 508);
+  vertex(347, 487);
+  vertex(353, 490);
+  vertex(403, 490);
   vertex(407, 534);
   vertex(285, 509);
-  vertex(297, 494);
-  vertex(321, 498);
+  vertex(292, 485);
+  vertex(321, 488);
   vertex(324, 483);
   endShape(CLOSE);
   beginShape();
@@ -1157,12 +1160,26 @@ void drawBoat() {
   vertex(285, 445);
   vertex(295, 492);
   vertex(294, 512);
-  vertex(259, 510);
-  vertex(260, 494);
-  vertex(281, 497);
+  vertex(245, 510);
+  vertex(250, 481);
+  vertex(281, 482);
   vertex(266, 429);
   vertex(237, 420);
   endShape(CLOSE);
+  
+  //stuff to the right of door
+  pushMatrix();
+  translate(0,-10);
+  fill(0+20);
+  quad(410+142, 490, 410+142+30, 490, 410+142+40, 500, 410+142, 500); //top paralelogram
+  fill(20+20);
+  quad(410+142, 500, 410+142+40, 500, 410+142+38, 520,410+142, 520);
+  fill(40+20);
+  quad(410+142, 520, 410+142+38, 520, 410+142+40, 545, 410+142, 545);
+  fill(60+20);
+  quad(410+142, 545, 410+142+36, 545,410+142+36, 565,410+142, 565);
+  popMatrix();
+  
   fill(119, 48, 42); //door frame
   rect(410, 422, 142, 139);
   fill(63, 23, 32); //door opening
@@ -1172,7 +1189,26 @@ void drawBoat() {
   fill(119, 48, 42); //door knob
   ellipse(495, 510, 10, 12);
 
+  //brown thing on right
+  fill(0+30);
+  quad(1070, 518-10, 1131, 521-10, 1100, 560, 1010, 570);
+  fill(20+30);
+  quad(1130, 521-10, 1200, 520-10, 1203, 541, 1100, 560);
+  fill(40+30);
+  quad(1070, 518-10, 1131, 515-10, 1200, 520-10, 1130, 522-10);
+
+
   drawFisher();
+
+  fill(157, 90, 89);
+  beginShape(); //boat front 3-d ishy
+  vertex(83, 476);
+  vertex(247, 487);
+  vertex(285, 500);
+  vertex(400, 520);
+  vertex(415, 550);
+  vertex(255, 520);
+  endShape(CLOSE);
 
   fill(106, 174, 239);
   beginShape(); //bottom base
@@ -1195,14 +1231,60 @@ void drawBoat() {
   vertex(95, 500);
   vertex(87, 496);
   endShape(CLOSE);
+
+  fill(255);
+  beginShape(); //white detail of base brown frame
+  vertex(95, 476+35);
+  vertex(527, 550+40);
+  vertex(1023, 555+40);
+  vertex(1187, 541+40);
+  vertex(1184, 568+20);
+  vertex(1023, 582+20);
+  vertex(527, 579+20);
+  vertex(97, 500+20);
+  //  vertex(87, 496+20);
+  endShape(CLOSE);
+
   fill(186, 187, 203);
+  beginShape(); //TOP OF DOOR  
+  vertex(237, 410-3);
+  vertex(510+50, 405-5);
+  vertex(550+70, 423-5);
+  vertex(410, 424-5);
+  vertex(266, 415-3);
+  endShape(CLOSE);
+  fill(63, 23, 32); //TOP OF DOOR 3-D
   beginShape();
-  vertex(237, 410);
-  vertex(510, 405);
-  vertex(550, 423);
+  vertex(237, 410-3);
+  vertex(266, 415-3);
+  vertex(410, 424-5);
+  vertex(550+70, 423-5);
+  vertex(550+70, 423);
   vertex(410, 424);
   vertex(266, 415);
+  vertex(237, 410);
   endShape(CLOSE);
+
+  //blacklines
+  fill(100, 81, 66);
+  rect(439, 200, 7, 200); //flagpole?
+  // rect(420, 220, 2, 80);
+  fill(106, 174, 239);
+  ellipse(442, 200, 12, 12);
+
+  beginShape();
+  vertex(422+20, 220-5); 
+  vertex(440+70, 220-5);
+  vertex(430+70, 230-2.5);
+  vertex(440+70, 240);
+  vertex(422+20, 240);
+  endShape(CLOSE);
+  //whitetop top 3-d
+  fill(255);
+  rect(420, 380, 30, 30, 0, 5, 0, 0);
+  triangle(400, 375, 450, 380, 420, 385);
+  rect(400, 376, 10, 30);
+
   popMatrix();
 }
 void drawFisher() {
@@ -1212,6 +1294,7 @@ void drawFisher() {
   scale(0.8);
   translate(700, 450);
   translate(-200, -100);
+ 
   fill(129, 144, 134); //body
   quad(160, 140, 240, 140, 260, 300, 140, 300);
   fill(skintone);
@@ -1247,7 +1330,31 @@ void drawFisher() {
   fill(188, 152, 146); //hatbeanie
   rect(145, 68, 110, 20, 5, 5, 0, 0);
   arc(200, 75, 100, 70, PI, TWO_PI);
+
+  //arm
+  fill(129-20, 144-20, 134-20);
+  float armR =-15;
+  pushMatrix();
+  translate(175, 170);
+  rotate(radians(armR));
+  translate(-170, -170);
+  ellipse(170, 170, 32, 32);
+  quad(170-16, 170, 170+16, 170, 170+10, 220, 170-10, 220);
+  ellipse(170, 220, 20, 20);
+  popMatrix();
+
+  pushMatrix();
+  translate(225, 170);
+  rotate(radians(-1*armR));
+  translate(-235, -170);
+  ellipse(235, 170, 32, 32);
+  quad(235-16, 170, 235+16, 170, 235+10, 220, 235-10, 220);
+  ellipse(235, 220, 20, 20);
+  popMatrix();
+
+
   //scarf
+  fill(188, 152, 146);
   rect(151, 137, 100, 17, 5, 0, 5, 0);
   beginShape();
   vertex(230, 145);
@@ -1255,14 +1362,15 @@ void drawFisher() {
   vertex(250, 200);
   vertex(235, 200);
   endShape(CLOSE);
+
   popMatrix();
 }
 
 void animateBoat() {
-  if (brotate <= -PI/50) {
+  if (brotate <= -PI/150) {
     boatD = false;
   }
-  if (brotate > random(PI/100, PI/50)) {
+  if (brotate > PI/150) {
     boatD = true;
   }
   if (boatD ==false) {
