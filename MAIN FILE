@@ -107,6 +107,10 @@ float ffx[], ffy[], fvx[], fvy[];
 
 float f1x;
 
+//seamonster delay
+
+float mmx;
+
 //Setup Function
 void setup() {
   size(1280, 720);
@@ -233,6 +237,10 @@ void setup() {
   //moving the fish back
 
   f1x = 700;
+  
+  //seamonster delay;
+  
+  mmx = 0;
 }
 
 
@@ -484,17 +492,25 @@ void draw() {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
     }
+    
 
 
-    //if (px >= -100) {
+    
     float vx;
     float vy;
     vx = 4;
     vy = 1*sin(radians(359));
-    px += vx * 2;
-    py += vy;
-    drawMonster(px, py, 0.5);
-    //}
+    
+    mmx += vx;
+    println(mmx);
+    if (mmx < 100){
+      drawMonster(px, py, 0.5);
+    }
+    if (mmx >= 100) {
+      px += vx * 2;
+      py += vy;
+      drawMonster(px, py, 0.5);
+    }
 
     if (px >= 1500) {
       fill(255);
@@ -573,7 +589,7 @@ void draw() {
     for (int i=1; i<2000; i++) {
       netRotate +=1;
     }
-    netx-=3;
+    netx+=3;
     nety+=6;
     netScale+=0.05;
   }
@@ -653,10 +669,39 @@ void draw() {
      seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
      */
   }
-  if (scene >= 7) {
+  
+  //SCENE 7 HAPPY SEAMONSTER ENTERS AND FREES FISH
+  
+  if (scene == 7){
+    background(underwater);
+    seaweeds(0, back[0], 1, 0.03);  
+    seaweeds(1000, back[1], 0.5, 0.03);
+    swap = 1;
+    seaweeds(0, back[2], 0.5, 0.03);
+    seaweeds(375, back[3], 1.5, 0.03);
+    swap = 2;
+    seaweeds(800, back[4], 0.5, 0.03);
+    seaweeds(500, back[5], 1, 0.03);
+    swap = 0;
+    seaweeds(-200, back[6], 0.5, 0.03);
+    
+    //FISH STUFF 
+    drawFirstFish(fx, fy, -.50, radians(10), #C80000, 255, 10);
+    FirstFishAnimate();
+    fx=895;
+    fy=back[3]+150;
 
-    //bC = underwater;
-
+    //NET STUFF
+    net(netx, nety, netScale, netRotate);
+    netScale=4;
+    netx=890; //ADJUST HERE FOR NET POSTITION!
+    nety=back[3]+150;
+  }
+  
+  //SCENE 8 FISH AND SEAMONSTER ARE FRIENDS
+  
+  if (scene == 8){
+    background(underwater);
     seaweeds(0, back[0], 1, 0.03);  
     seaweeds(1000, back[1], 0.5, 0.03);
     swap = 1;
