@@ -111,6 +111,10 @@ float f1x;
 
 float mmx;
 
+//seamonster reenter
+
+int ppx, ppy;
+
 //Setup Function
 void setup() {
   size(1280, 720);
@@ -241,6 +245,11 @@ void setup() {
   //seamonster delay;
   
   mmx = 0;
+  
+  //seamonster reenter
+  
+  ppx = -800;
+  ppy = height/2;
 }
 
 
@@ -700,17 +709,17 @@ void draw() {
     //sea monster enters
     
     noStroke();
-    if(px < 100) {
+    if(ppx < 100) {
       float vx;
       float vy;
       vx = 6;
       vy = -1;
-      px += vx;
-      py += vy;
-      drawMonster(px, py, 0.5);
+      ppx += vx;
+      ppy += vy;
+      drawMonster(ppx, ppy, 0.5);
     }
-    if(px >= 100) {
-      drawMonster(100, py, 0.5);
+    if(ppx >= 100) {
+      drawMonster(100, ppy, 0.5);
     }
   }
   
