@@ -18,8 +18,8 @@ float bubblesDiameter[];
 
 /* DECLARE VARIABLES */
 // for fish
-int fishNumber = 20;
-float fishTime = 10;
+int fishNumber = 22;
+float fishTime = 9;
 float fishEyeMove = 0, fishTailMove = 0;
 boolean fishTailSwitch = false;
 //boolean fishAnimate = false;
@@ -163,9 +163,9 @@ void setup() {
   for (int i = 0; i < fishNumber; i++) {
     fishLoc[i] = new PVector(width*-.8, (height-70)/fishNumber*i+40);
     fishDir[i] = new PVector(random(0.8, 1.7), 0);
-    fishScale[i] = random(0.15, 0.65);
+    fishScale[i] = random(0.2, 0.7);
     //fishRotate[i] = random(radians(-30), radians(30));
-    fishColor[i] = color(random(0, 255), random(0, 255), random(0, 255));
+    fishColor[i] = color(random(50, 255), random(random(0, 140), random(200, 255)), random(random(0, 160), random(220, 255)));
     fishEyeColor[i] = color(random(225, 255));
   }
 
@@ -507,10 +507,13 @@ void draw() {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       // Code to increase fish's speed when approaching monster
-      if (fishLoc[i].x >= 100 && fishLoc[i].x <= 300 ) {
+      if (fishLoc[i].x >= 100 && fishLoc[i].x <= 200 ) {
         fishTime+=0.01;
       }
-      if (fishLoc[i].x > 300 && fishLoc[i].x <= 900 ) {
+      if (fishLoc[i].x > 200 && fishLoc[i].x <= 400 ) {
+        fishTime+=0.04;
+      }
+      if (fishLoc[i].x > 400 && fishLoc[i].x <= 1000 ) {
         fishTime+=0.07;
       }
     }
@@ -1170,8 +1173,6 @@ void bubblesAnimate () {
     bubblesLoc[i].y = bubblesLoc[i].y + bubblesDir[i].y*bubblesTime;
   }
 }
-
-
 
 // functions for fish
 void drawFish (float fishTranslateX, float fishTranslateY, float fishScale, float fishRotate, color fishColor, color fishEyeColor) {
