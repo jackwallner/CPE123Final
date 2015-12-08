@@ -19,7 +19,7 @@ float bubblesDiameter[];
 /* DECLARE VARIABLES */
 // for fish
 int fishNumber = 20;
-float fishTime = 9;
+float fishTime = 10;
 float fishEyeMove = 0, fishTailMove = 0;
 boolean fishTailSwitch = false;
 //boolean fishAnimate = false;
@@ -506,6 +506,13 @@ void draw() {
     for (int i = 0; i < fishNumber; i++) {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
+      // Code to increase fish's speed when approaching monster
+      if (fishLoc[i].x >= 100 && fishLoc[i].x <= 300 ) {
+        fishTime+=0.01;
+      }
+      if (fishLoc[i].x > 300 && fishLoc[i].x <= 900 ) {
+        fishTime+=0.07;
+      }
     }
 
 
