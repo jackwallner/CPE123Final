@@ -617,6 +617,10 @@ void draw() {
     netx+=3;
     nety+=6;
     netScale+=0.05;
+
+    fill(0);
+    textSize(20);
+    text("MEH...", 830, 350);
   }
 
 
@@ -633,6 +637,12 @@ void draw() {
     if (wy<=0) {
       wy=0;
       bC = underwater;
+    }
+
+    if (wy <= 100) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
     }
     boatP=false;
 
@@ -722,6 +732,10 @@ void draw() {
     netx=890; //ADJUST HERE FOR NET POSTITION!
     nety=back[3]+150;
 
+    fill(255);
+    textSize(40);
+    text("!!", random(850, 900), random(150, 200));
+
     //sea monster enters
 
     noStroke();
@@ -736,6 +750,13 @@ void draw() {
     }
     if (ppx >= 100) {
       drawMonster(100, ppy, 0.5);
+    }
+    if (ppx == 100) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
+      textSize(20);
+      text("hm...", 740, 150);
     }
   }
 
@@ -775,9 +796,17 @@ void draw() {
       ppx += vx;
       ppy += vy;
       drawMonster(ppx, ppy, 0.5);
+      fill(255);
+      textSize(20);
+      text("*sigh*", ppx + 650, 155);
     }
     if (ppx >= 400) {
       drawMonster(400, ppy, 0.5);
+    }
+    if (ppx == 400) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
     }
   }
 
@@ -814,6 +843,12 @@ void draw() {
     if (ppx <= 100) {
       drawMonster(100, ppy, 0.5);
     }
+    if (ppx == 100) {
+      fill(255);
+      textSize(40);
+      text("Click!", 25, 50);
+      text("??", 840, 175);
+    }
   }
 
 
@@ -831,6 +866,14 @@ void draw() {
     seaweeds(500, back[5], 1, 0.03);
     swap = 0;
     seaweeds(-200, back[6], 0.5, 0.03);
+
+    drawMonster(100, ppy, 0.5);
+
+    //FISH STUFF 
+    drawFirstFish(fx, fy, -.50, radians(10), #C80000, 255, 10);
+    FirstFishAnimate();
+    fx=895;
+    fy=back[3]+150;
   }
 }
 
