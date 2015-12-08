@@ -696,6 +696,22 @@ void draw() {
     netScale=4;
     netx=890; //ADJUST HERE FOR NET POSTITION!
     nety=back[3]+150;
+    
+    //sea monster enters
+    
+    noStroke();
+    if(px < 100) {
+      float vx;
+      float vy;
+      vx = 6;
+      vy = -1;
+      px += vx;
+      py += vy;
+      drawMonster(px, py, 0.5);
+    }
+    if(px >= 100) {
+      drawMonster(100, py, 0.5);
+    }
   }
   
   //SCENE 8 FISH AND SEAMONSTER ARE FRIENDS
