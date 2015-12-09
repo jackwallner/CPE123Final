@@ -1,7 +1,7 @@
 // Main File for the CPE 123 Project
 /* NOTE: Make sure to have heart.png (http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png) 
-         placed in the same folder as this .pde file is before runnning the program */
-         
+ placed in the same folder as this .pde file is before runnning the program */
+
 
 //Timeline
 int scene;
@@ -10,7 +10,7 @@ int s2;
 
 // hearts stuff
 PImage heart0;
-int heartNumber = 25;
+int heartNumber = 60;
 float heartTime = 1;
 PVector heartLoc[];
 PVector heartDir[];
@@ -148,8 +148,8 @@ void setup() {
   brotate = 0;
   bpy= -425;
 
-// hearts stuff
- heart0 = loadImage("heart.png");
+  // hearts stuff
+  heart0 = loadImage("heart.png");
   heart0.loadPixels();
   // initializing arrays for heart 
   heartLoc = new PVector[heartNumber];
@@ -158,10 +158,10 @@ void setup() {
   heartRotate = new float[heartNumber];
   heartAlpha = new float[heartNumber];
   for (int i = 0; i < heartNumber; i++) {
-    heartLoc[i] = new PVector(random(width/2-300, width/2+300), random(height/2-200, height-200));
-    heartDir[i] = new PVector(random(-0.4, 0.4), random(-1, -2));
-    heartScale[i] = random(0.15, 0.45);
-    heartRotate[i] = random(radians(-25), radians(25));
+    heartLoc[i] = new PVector(random(200, width-200), random(height-height*.1, 2*height));
+    heartDir[i] = new PVector(random(-0.7, 0.7), random(-2, -3));
+    heartScale[i] = random(0.2, 0.5);
+    heartRotate[i] = random(radians(-30), radians(30));
     //heartAlpha[i] = 255;
   }
 
@@ -648,6 +648,12 @@ void draw() {
       text("Click!", 25, 50);
     }
 
+    // code to make bubbles go down 
+    bubblesAnimate();
+    for (int i = 0; i < bubblesNumber; i++) {
+      bubblesDir[i] = new PVector(random(-0.2, 0.2), random(2.2, 2.5));
+      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+    }
 
     /*
     for (int i = 0; i < bubblesNumber; i++) {
@@ -693,8 +699,6 @@ void draw() {
     textSize(20);
     text("MEH...", 830, 350);
   }
-
-
 
   //SCENE 6 TRANSITION BACK UNDERWATER
   if (scene == 6) {
@@ -939,10 +943,10 @@ void draw() {
     seaweeds(-200, back[6], 0.5, 0.03);
 
     // HEARTS STUFF
-      heartAnimate();
-  for (int i = 0; i < heartNumber; i++) {
-    drawHeart(heartLoc[i].x, heartLoc[i].y, heartScale[i], heartRotate[i], heartAlpha[i]);
-  }
+    heartAnimate();
+    for (int i = 0; i < heartNumber; i++) {
+      drawHeart(heartLoc[i].x, heartLoc[i].y, heartScale[i], heartRotate[i], heartAlpha[i]);
+    }
 
     drawMonster(100, ppy, 0.5);
 
@@ -951,8 +955,6 @@ void draw() {
     FirstFishAnimate();
     fx=895;
     fy=back[3]+150;
-    
-
   }
 }
 
