@@ -1,9 +1,22 @@
-//Main File for the CPE 123 Project
+// Main File for the CPE 123 Project
+/* NOTE: Make sure to have heart.png (http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png) 
+         placed in the same folder as this .pde file is before runnning the program */
+         
 
 //Timeline
 int scene;
 int s1;
 int s2;
+
+// hearts stuff
+PImage heart0;
+int heartNumber = 25;
+float heartTime = 1;
+PVector heartLoc[];
+PVector heartDir[];
+float heartScale[];
+float heartRotate[];
+float heartAlpha[];
 
 // stuff for bubbles
 int bubblesNumber = 50;
@@ -119,6 +132,7 @@ int ppx, ppy;
 //Setup Function
 void setup() {
   size(1280, 720);
+  smooth();
   background(18, 170, 190);
   //seaweed setup
   s1 = 500;
@@ -133,6 +147,24 @@ void setup() {
   //boat setup
   brotate = 0;
   bpy= -425;
+
+// hearts stuff
+ heart0 = loadImage("heart.png");
+  heart0.loadPixels();
+  // initializing arrays for heart 
+  heartLoc = new PVector[heartNumber];
+  heartDir = new PVector[heartNumber];
+  heartScale = new float[heartNumber];
+  heartRotate = new float[heartNumber];
+  heartAlpha = new float[heartNumber];
+  for (int i = 0; i < heartNumber; i++) {
+    heartLoc[i] = new PVector(random(width/2-300, width/2+300), random(height/2-200, height-200));
+    heartDir[i] = new PVector(random(-0.4, 0.4), random(-1, -2));
+    heartScale[i] = random(0.15, 0.45);
+    heartRotate[i] = random(radians(-25), radians(25));
+    //heartAlpha[i] = 255;
+  }
+
 
 
   // initializing arrays for bubbles 
@@ -296,8 +328,7 @@ void draw() {
     for (int i = 0; i < bubblesNumber; i++) {
       //bubblesTime+=-0.1;
       drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-     
-  }
+    }
   }
 
   //drawMonster(200, 200, 0.5);
@@ -508,7 +539,7 @@ void draw() {
     fill(underwater);
     rect(0, 0, 150, 75);
     fishAnimate();
-    
+
     //Fat Fishes
     for (int i=0; i<numFish; i++) {
       pushMatrix();
@@ -528,10 +559,10 @@ void draw() {
       ffy[i] += 2*sin(radians(ffx[i]));
       if (ffx[i] > 500) {
         ffx[i] += 2*fvx[i];
+      }
     }
-    }
-    
-    
+
+
     for (int i = 0; i < fishNumber; i++) {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
@@ -616,17 +647,17 @@ void draw() {
       textSize(40);
       text("Click!", 25, 50);
     }
-    
-    
+
+
     /*
     for (int i = 0; i < bubblesNumber; i++) {
-      //bubblesTime += -0.0001;
-      //bubblesDir.mult(-1.5);
-      //PVector bubblesDir2 = PVector.mult(bubblesDir[i], -1);
-      //bubblesAnimate2();
-      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-  }
-  */
+     //bubblesTime += -0.0001;
+     //bubblesDir.mult(-1.5);
+     //PVector bubblesDir2 = PVector.mult(bubblesDir[i], -1);
+     //bubblesAnimate2();
+     drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+     }
+     */
   }
 
   //SCENE 5 WITH BOAT
@@ -907,6 +938,12 @@ void draw() {
     swap = 0;
     seaweeds(-200, back[6], 0.5, 0.03);
 
+    // HEARTS STUFF
+      heartAnimate();
+  for (int i = 0; i < heartNumber; i++) {
+    drawHeart(heartLoc[i].x, heartLoc[i].y, heartScale[i], heartRotate[i], heartAlpha[i]);
+  }
+
     drawMonster(100, ppy, 0.5);
 
     //FISH STUFF 
@@ -914,6 +951,8 @@ void draw() {
     FirstFishAnimate();
     fx=895;
     fy=back[3]+150;
+    
+
   }
 }
 
@@ -1234,6 +1273,24 @@ void drawMonster(int x, int y, float scaleS) {
   monsterwave(0, 0);
   popMatrix();
 }
+
+// functions for hearts
+void drawHeart (float heartTranslateX, float heartTranslateY, float heartScale, float heartRotate, float heartAlpha) {
+  pushMatrix();
+  translate(heartTranslateX, heartTranslateY);
+  rotate(heartRotate);
+  scale(heartScale);
+  image(heart0, 0, 0);
+  popMatrix();
+}
+
+void heartAnimate () {
+  for (int i = 0; i < heartNumber; i++) {
+    heartLoc[i].x = heartLoc[i].x + heartDir[i].x*heartTime;
+    heartLoc[i].y = heartLoc[i].y + heartDir[i].y*heartTime;
+  }
+}  
+
 
 // functions for bubbles
 void drawBubbles (float bubblesTranslateX, float bubblesTranslateY, float bubblesScale, float bubblesRotate, color bubblesColor, color bubblesStrokeColor, float bubblesDiameter) {
