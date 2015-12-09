@@ -2,11 +2,16 @@
 /* NOTE: Make sure to have heart.png (http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png) 
  placed in the same folder as this .pde file is before runnning the program */
 
-
 //Timeline
 int scene;
 int s1;
 int s2;
+
+// sky stuff
+PImage sky0;
+PVector skyLoc;
+PVector skyDir;
+float skyTime = 1;
 
 // hearts stuff
 PImage heart0;
@@ -148,6 +153,10 @@ void setup() {
   brotate = 0;
   bpy= -425;
 
+  // sky stuff
+  sky0 = loadImage("sky.jpg");
+  skyLoc = new PVector(0, -sky0.height-80);
+  skyDir = new PVector(0, 2);
   // hearts stuff
   heart0 = loadImage("heart.png");
   heart0.loadPixels();
@@ -667,7 +676,18 @@ void draw() {
   }
 
   //SCENE 5 WITH BOAT
+
   if (scene == 4 || scene ==5) {
+    // sky stuff for scene 5
+    skyAnimate();
+    if (skyLoc.y <= 0) {
+      drawSky(skyLoc.x, skyLoc.y, 1, 0);
+    } else {
+      skyLoc.x = 0;
+      skyLoc.y = 0;
+      drawSky(skyLoc.x, skyLoc.y, 1, 0);
+    }
+
     boatP=true;
 
     drawBoat();
@@ -703,6 +723,8 @@ void draw() {
   //SCENE 6 TRANSITION BACK UNDERWATER
   if (scene == 6) {
 
+
+
     background(bC);
     float vy;
     vy = -2;
@@ -720,6 +742,11 @@ void draw() {
       text("Click!", 25, 50);
     }
     boatP=false;
+
+    // sky stuff for scene 6
+    skyAnimate();
+    skyDir = new PVector(0, -2);
+    drawSky(skyLoc.x, skyLoc.y, 1, 0);
 
     drawBoat();
     animateBoat();
@@ -1274,6 +1301,21 @@ void drawMonster(int x, int y, float scaleS) {
   translate(x+400, y);
   monsterwave(0, 0);
   popMatrix();
+}
+
+// functions for sky
+void drawSky (float skyTranslateX, float skyTranslateY, float skyScale, float skyRotate) {
+  pushMatrix();
+  translate(skyTranslateX, skyTranslateY);
+  rotate(skyRotate);
+  scale(skyScale);
+  image(sky0, 0, 0);
+  popMatrix();
+}
+
+void skyAnimate () {
+  skyLoc.x = skyLoc.x + skyDir.x*skyTime;
+  skyLoc.y = skyLoc.y + skyDir.y*skyTime;
 }
 
 // functions for hearts
