@@ -1,6 +1,9 @@
 // Main File for the CPE 123 Project
-/* NOTE: Make sure to have heart.png (http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png) 
- placed in the same folder as this .pde file is before runnning the program */
+/* IMPORTANT
+Make sure to download the following files and put them in the same folder before running the program
+http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png
+http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/sky.jpg
+*/
 
 //Timeline
 int scene;
