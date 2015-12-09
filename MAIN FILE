@@ -16,7 +16,7 @@ float skyTime = 1;
 // hearts stuff
 PImage heart0;
 int heartNumber = 45;
-float heartTime = 1;
+float heartTime = 1.25;
 PVector heartLoc[];
 PVector heartDir[];
 float heartScale[];
@@ -660,8 +660,10 @@ void draw() {
     // code to make bubbles go down 
     bubblesAnimate();
     for (int i = 0; i < bubblesNumber; i++) {
-      bubblesDir[i] = new PVector(random(-0.2, 0.2), random(2.2, 2.5));
-      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+      if (bubblesLoc[i].y > -50) {
+        bubblesDir[i] = new PVector(random(-0.2, 0.2), random(1.1, 1.4));
+        drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+      }
     }
 
     /*
