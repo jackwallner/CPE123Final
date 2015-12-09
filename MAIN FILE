@@ -661,7 +661,7 @@ void draw() {
     bubblesAnimate();
     for (int i = 0; i < bubblesNumber; i++) {
       if (bubblesLoc[i].y > -50) {
-        bubblesDir[i] = new PVector(random(-0.2, 0.2), random(1.1, 1.4));
+        bubblesDir[i] = new PVector(random(-0.1, 0.1), random(1.1, 1.4));
         drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
       }
     }
