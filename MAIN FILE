@@ -6,10 +6,11 @@ int s1;
 int s2;
 
 // stuff for bubbles
-int bubblesNumber = 150;
+int bubblesNumber = 50;
 float bubblesTime = 2;
 PVector bubblesLoc[];
 PVector bubblesDir[];
+PVector bubblesDir2[];
 float bubblesScale[];
 float bubblesRotate[];
 color bubblesStrokeColor[];
@@ -137,18 +138,21 @@ void setup() {
   // initializing arrays for bubbles 
   bubblesLoc = new PVector[bubblesNumber];
   bubblesDir = new PVector[bubblesNumber];
+  bubblesDir2 = new PVector[bubblesNumber];
   bubblesScale = new float[bubblesNumber];
   bubblesRotate = new float[bubblesNumber];
   bubblesColor = new color[bubblesNumber];
   bubblesStrokeColor = new color[bubblesNumber];
   bubblesDiameter = new float[bubblesNumber];
   for (int i = 0; i < bubblesNumber; i++) {
-    bubblesLoc[i] = new PVector(random(-20, width+20), random(height+20, 4*height));
+    bubblesLoc[i] = new PVector(random(-20, width+20), random(height+20, 2*height));
     bubblesDir[i] = new PVector(random(-0.2, 0.2), random(-1.5, -1));
     bubblesScale[i] = random(1.5, 4.5);
     //bubblesRotate[i] = random(radians(-30), radians(30));
     bubblesColor[i] = color(random(92, 115), random(220, 255), random(240, 255), random(30, 100));
     bubblesStrokeColor[i] = color(random(92, 115), random(220, 255), random(240, 255), random(5, 25));
+    //bubblesDir2[i] = mult(bubblesDir[i], -1);
+    //bubblesDir2[i] = PVector.mult(bubblesDir[i], -1);
     //bubblesDiameter[i] = random(40, 75);
   }
 
@@ -290,8 +294,10 @@ void draw() {
     // stuff for bubbles
     bubblesAnimate();
     for (int i = 0; i < bubblesNumber; i++) {
+      //bubblesTime+=-0.1;
       drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-    }
+     
+  }
   }
 
   //drawMonster(200, 200, 0.5);
@@ -502,7 +508,30 @@ void draw() {
     fill(underwater);
     rect(0, 0, 150, 75);
     fishAnimate();
-    drawFatfishes();
+    
+    //Fat Fishes
+    for (int i=0; i<numFish; i++) {
+      pushMatrix();
+      scale(fishscale[i]);
+      translate(ffx[i]-500, ffy[i]);
+      fill(fishcolor[i]);
+      ellipse(0, 0, 50, 40); //body
+      triangle(-20, 0, -35, -10, -35, 10);
+      fill(255);
+      ellipse(10, 0, 20, 35);
+      ellipse(12, 0, 25, 30);
+      fill(fishcolor[i]);
+      ellipse(12, -4, 6, 6);
+      popMatrix();
+      //fish wave
+      ffx[i] += fvx[i];
+      ffy[i] += 2*sin(radians(ffx[i]));
+      if (ffx[i] > 500) {
+        ffx[i] += 2*fvx[i];
+    }
+    }
+    
+    
     for (int i = 0; i < fishNumber; i++) {
       //fish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
       drawFish(fishLoc[i].x, fishLoc[i].y, fishScale[i], fishRotate[i], fishColor[i], 255);
@@ -536,7 +565,7 @@ void draw() {
       py += vy;
       drawMonster(px, py, 0.5);
     }
-    if (px >= 2000) {
+    if (px >= 3500) {
       fill(255);
       textSize(40);
       text("Click!", 25, 50);
@@ -587,6 +616,17 @@ void draw() {
       textSize(40);
       text("Click!", 25, 50);
     }
+    
+    
+    /*
+    for (int i = 0; i < bubblesNumber; i++) {
+      //bubblesTime += -0.0001;
+      //bubblesDir.mult(-1.5);
+      //PVector bubblesDir2 = PVector.mult(bubblesDir[i], -1);
+      //bubblesAnimate2();
+      drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
+  }
+  */
   }
 
   //SCENE 5 WITH BOAT
@@ -639,7 +679,7 @@ void draw() {
       bC = underwater;
     }
 
-    if (wy <= 100) {
+    if (nety == back[3]+150) {
       fill(255);
       textSize(40);
       text("Click!", 25, 50);
@@ -1214,6 +1254,13 @@ void bubblesAnimate () {
   for (int i = 0; i < bubblesNumber; i++) {
     bubblesLoc[i].x = bubblesLoc[i].x + bubblesDir[i].x*bubblesTime;
     bubblesLoc[i].y = bubblesLoc[i].y + bubblesDir[i].y*bubblesTime;
+  }
+}
+
+void bubblesAnimate2 () {
+  for (int i = 0; i < bubblesNumber; i++) {
+    bubblesLoc[i].x = bubblesLoc[i].x + bubblesDir2[i].x*bubblesTime;
+    bubblesLoc[i].y = bubblesLoc[i].y + bubblesDir2[i].y*bubblesTime;
   }
 }
 
