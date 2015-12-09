@@ -18,8 +18,8 @@ float skyTime = 1;
 
 // hearts stuff
 PImage heart0;
-int heartNumber = 45;
-float heartTime = 1.25;
+int heartNumber = 40;
+float heartTime = 1.75;
 PVector heartLoc[];
 PVector heartDir[];
 float heartScale[];
@@ -158,7 +158,7 @@ void setup() {
 
   // sky stuff
   sky0 = loadImage("sky.jpg");
-  skyLoc = new PVector(0, -sky0.height-80);
+  skyLoc = new PVector(0, -sky0.height-75);
   skyDir = new PVector(0, 2);
   // hearts stuff
   heart0 = loadImage("heart.png");
@@ -170,7 +170,7 @@ void setup() {
   heartRotate = new float[heartNumber];
   heartAlpha = new float[heartNumber];
   for (int i = 0; i < heartNumber; i++) {
-    heartLoc[i] = new PVector(random(200, width-200), random(1.05*height, 1.7*height));
+    heartLoc[i] = new PVector(random(250, width-250), random(1.05*height, 1.55*height));
     heartDir[i] = new PVector(random(-0.7, 0.7), random(-2, -3));
     heartScale[i] = random(0.2, 0.5);
     heartRotate[i] = random(radians(-30), radians(30));
