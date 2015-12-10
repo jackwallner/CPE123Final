@@ -873,7 +873,7 @@ void draw() {
     if (ppx == 100) {
       fill(255);
       textSize(40);
-      text("Click!", 25, 50);
+      text("Click the sea monster!", 25, 50); 
       textSize(20);
       text("hm...", 740, 150);
     }
@@ -925,7 +925,7 @@ void draw() {
     if (ppx == 400) {
       fill(255);
       textSize(40);
-      text("Click!", 25, 50);
+      text("Click the monster!", 25, 50);
     }
   }
 
@@ -965,7 +965,7 @@ void draw() {
     if (ppx == 100) {
       fill(255);
       textSize(40);
-      text("Click!", 25, 50);
+      text("Click the fish!", 25, 50);
       text("??", 840, 175);
     }
   }
@@ -1862,9 +1862,21 @@ void mousePressed() {
     scene=7;
     c7=true;
     println(scene);
-  } else if (( scene==7 )) {
-    //press
+  } else if ((scene==7)&&(mouseX>31) && (mouseX<31+742) && (mouseY>112) && (mouseY<112+187)) {
+    //press seamonster
     scene=8;
+    println(scene);
+  }else if ((scene==8)&&(mouseX>334) && (mouseX<334+734) && (mouseY>73) && (mouseY<73+193)) {
+    //press seamonster at net
+    scene=9;
+    println(scene);
+  }else if ((scene==9)&&(mouseX>821) && (mouseX<821+147) && (mouseY>265) && (mouseY<265+44)) {
+    //press fish b4hearts
+    scene=10;
+    println(scene);
+  }else if (( scene==10 )) {
+    //press
+    scene=11;
     println(scene);
   }
 }
