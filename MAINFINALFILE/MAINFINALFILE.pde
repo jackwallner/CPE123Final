@@ -31,7 +31,7 @@ float heartRotate[];
 float heartAlpha[];
 
 // stuff for bubbles
-int bubblesNumber = 50;
+int bubblesNumber = 150;
 float bubblesTime = 2;
 PVector bubblesLoc[];
 PVector bubblesDir[];
@@ -193,7 +193,7 @@ void setup() {
   bubblesStrokeColor = new color[bubblesNumber];
   bubblesDiameter = new float[bubblesNumber];
   for (int i = 0; i < bubblesNumber; i++) {
-    bubblesLoc[i] = new PVector(random(-20, width+20), random(height+20, 2*height));
+    bubblesLoc[i] = new PVector(random(-20, width+20), random(height+20, 5*height));
     bubblesDir[i] = new PVector(random(-0.2, 0.2), random(-1.5, -1));
     bubblesScale[i] = random(1.5, 4.5);
     //bubblesRotate[i] = random(radians(-30), radians(30));
