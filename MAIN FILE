@@ -1809,6 +1809,10 @@ void mousePressed() {
   println(scene);
 }
 
+void keyPressed() {
+  scene = scene + 1;
+}
+
 void net(int x, int y, float size, float netR) {
   pushMatrix();
   translate(25, 25);
