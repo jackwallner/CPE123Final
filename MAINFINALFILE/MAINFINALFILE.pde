@@ -1,9 +1,5 @@
+//Jennifer, Jack, Thang, Kayleigh
 // Main File for the CPE 123 Project
-/* IMPORTANT
- Make sure to download the following files and put them in the same folder before running the program
- http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/heart.png
- http://users.csc.calpoly.edu/~tbui09/cpe123/finalproject/sky.jpg
- */
 //clicks
 boolean c1=false; 
 boolean c2=false;
@@ -318,7 +314,6 @@ void draw() {
     bC = underwater;
     background(bC);
     nx = nx + 0.01*nx;
-    // net(width/2, height/2, nx, 0);
   }
 
   noStroke();
@@ -353,107 +348,21 @@ void draw() {
     }
   }
 
-  //drawMonster(200, 200, 0.5);
-
-
-  //if (scene >= 1) {
-  // if (fx > 650) {
-  //   float vx;
-  //   float vy;
-  //   vx = -5;
-  //   vy = 0;
-  //   fx += vx;
-  //   fy += vy;
-  //   FirstFish(fx, fy);
-  // } 
-  // if (fx <= 650) {
-  //   FirstFish(650, fy);
-  //   println("boom");
-  // }
-  //}
-
-
-  //SCENE 1
-
-  /*
-  if (scene == 1){
-   for (int i = 0; i < s1; i++){
-   int s1x;
-   float s1y;
-   int s1r;
-   s1x = -25;
-   s1y = 340;
-   s1r = 5;
-   ManyFish(s1x+i, s1y, s1r, 1, 255);
-   s1x += 1;
-   println(s1x);
-   //s1y = 100*sin(s1y);
-   if (s1x < 340){
-   s1x += 1;
-   } else {
-   s1x = 341;
-   {
-   
-   
-   }
-   }
-   }
-   }
-   */
-
   // Scene 1 (first fish appears)
   if ((scene >= 1) && (scene <= 4)) {
 
     FirstFishAnimate();
 
     if (fx > 700) {
-      /* float vx=-5;
-       float vy=0;
-       vx = -5;
-       vy = 0; */
-      /*
-    if (fy > 200){
-       vy = sin(1);
-       } else if ((fy > 300) && (fy > 200)){
-       vy = sin(-1);
-       }
-       */
-      //vy = -1;
-      /*
-      float vy;
-       vy = 0;
-       for (int i = 0; i < 10; i++){
-       vy = -0.5*sin(5*i);
-       }
-       */
 
       fx += vx;
       //fy += vy;
-      fy+=2*sin(radians(fx));
+      fy+=2*sin(radians(fx)); //first fish wave
       drawFirstFish(fx, fy, -0.75, 0, #C80000, 255, 10);
 
-      //if (fy < 100) {
-      //  vy = 1;
-      //  fy += vy;
-      //  drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
-      //}
-
-      //if (fy > 500) {
-      //  vy = -1;
-      //  fy += vy;
-      //        drawFirstFish(fx, fy, -0.75, 0, #C80000, 255);
-      //}
     }
-    /*
-    // stuff for bubbles
-     bubblesAnimate();
-     for (int i = 0; i < bubblesNumber; i++) {
-     drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-     } 
-     */
     if (fx <= 700) {
       if (scene == 1) {
-        //drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
         drawFirstFish(fx, fy, -0.75, 0, #C80000, 255, 10);
       }
       if (px < -200) {
@@ -479,26 +388,6 @@ void draw() {
 
         drawFirstFish(f1x, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
       }
-      /*
-      if (scene >= 3) {
-       vx +=5;
-       vy = 0;
-      /*
-       if (fy > 200){
-       vy = sin(1);
-       } else if ((fy > 300) && (fy > 200)){
-       vy = sin(-1);
-       }
-       */
-      //vy = -1;
-      /*
-        fx += vx;
-       fy += vy;
-       println(fx);
-       drawFirstFish(fx, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
-       //drawFirstFish(700, fy, -.75, random(radians(-4), radians(4)), #C80000, color ((int)random(175, 255), (int)random(150, 255), (int)random(150, 255)), random(12, 18));
-       }
-       */
     }
 
     if ((fx <= 700) && (c2==false)) {
@@ -519,16 +408,6 @@ void draw() {
     text("██████████████", 25, 50);
     //println(px);
 
-    /*for (int i = 0; i < s2; i++){
-     fill(18,170,190);
-     rect(0,0, width, height*0.65);
-     int x;
-     int y;
-     x = -500 + 5*i;
-     y = height/2;
-     drawMonster(x, y, 0.5);
-     }
-     */
     if (px > -500) {
       fill(255);
       textSize(40);
@@ -674,15 +553,6 @@ void draw() {
       }
     }
 
-    /*
-    for (int i = 0; i < bubblesNumber; i++) {
-     //bubblesTime += -0.0001;
-     //bubblesDir.mult(-1.5);
-     //PVector bubblesDir2 = PVector.mult(bubblesDir[i], -1);
-     //bubblesAnimate2();
-     drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
-     }
-     */
   }
 
   //SCENE 5 WITH BOAT
@@ -714,7 +584,7 @@ void draw() {
     if (bpy >=200) {
       bpy=200;
     }
-    if (wy >= 520) {
+    if (wy >= 520 && nety <= 1000) {
       fill(255);
       textSize(40);
       text("Click the fisherman!", 25, 50);
@@ -734,6 +604,12 @@ void draw() {
     fill(0);
     textSize(20);
     text("MEH...", 830, 350);
+
+    if (nety >= 1000) {
+      fill(255);
+      textSize(40);
+      text("Click the boat!", 25, 50);
+    }
   }
 
   //SCENE 6 TRANSITION BACK UNDERWATER
@@ -773,9 +649,6 @@ void draw() {
         bpy-=.3;
       }
     } 
-    //    fill(sky);
-    //   rect(0, wy-(height+waterlevel), width, height+waterlevel);
-    // bC = underwater;
 
 
     for (int i = 0; i < 7; i++) {
@@ -809,18 +682,6 @@ void draw() {
     netScale=3.5;
     netx=890; //ADJUST HERE FOR NET POSTITION!
     nety=back[3]+210;
-    /*
-    seaweeds(0, sweedYback[0] + 500, 1, 0.03);  
-     seaweeds(1000, sweedYback[1] + 500, 0.5, 0.03);
-     swap = 1;
-     seaweeds(0, sweedYback[2] + 500, 0.5, 0.03);
-     seaweeds(375, sweedYback[3] + 500, 1.5, 0.03);
-     swap = 2;
-     seaweeds(800, sweedYback[4] + 500, 0.5, 0.03);
-     seaweeds(500, sweedYback[5] + 500, 1, 0.03);
-     swap = 0;
-     seaweeds(-200, sweedYback[6] + 500, 0.5, 0.03);
-     */
   }
 
   //SCENE 7 HAPPY SEAMONSTER ENTERS AND FREES FISH
@@ -853,7 +714,7 @@ void draw() {
 
     fill(255);
     textSize(40);
-    text("!!", random(850, 900), random(150, 200));
+    text("!!", random(850, 900), random(150 + 60, 200 + 60));
 
     //sea monster enters
 
@@ -865,17 +726,17 @@ void draw() {
       vy = -1;
       ppx += vx;
       ppy += vy;
-      drawMonster(ppx, ppy, 0.5);
+      drawMonster(ppx, ppy + 60, 0.5);
     }
     if (ppx >= 100) {
-      drawMonster(100, ppy, 0.5);
+      drawMonster(100, ppy + 60, 0.5);
     }
     if (ppx == 100) {
       fill(255);
       textSize(40);
       text("Click the sea monster!", 25, 50); 
       textSize(20);
-      text("hm...", 740, 150);
+      text("hm...", 740, 150 + 60);
     }
   }
 
@@ -914,13 +775,13 @@ void draw() {
       vy = 0;
       ppx += vx;
       ppy += vy;
-      drawMonster(ppx, ppy, 0.5);
+      drawMonster(ppx, ppy + 60, 0.5);
       fill(255);
       textSize(20);
-      text("*sigh*", ppx + 650, 155);
+      text("*sigh*", ppx + 650, 155 + 60);
     }
     if (ppx >= 400) {
-      drawMonster(400, ppy, 0.5);
+      drawMonster(400, ppy + 60, 0.5);
     }
     if (ppx == 400) {
       fill(255);
@@ -957,16 +818,16 @@ void draw() {
       vy = 0;
       ppx += -vx;
       ppy += vy;
-      drawMonster(ppx, ppy, 0.5);
+      drawMonster(ppx, ppy + 60, 0.5);
     }
     if (ppx <= 100) {
-      drawMonster(100, ppy, 0.5);
+      drawMonster(100, ppy + 60, 0.5);
     }
     if (ppx == 100) {
       fill(255);
       textSize(40);
       text("Click the fish!", 25, 50);
-      text("??", 840, 175);
+      text("??", 840, 175 + 60);
     }
   }
 
@@ -999,7 +860,7 @@ void draw() {
       }
     }
 
-    drawMonster(100, ppy, 0.5);
+    drawMonster(100, ppy + 60, 0.5);
 
     //FISH STUFF 
     drawFirstFish(fx, fy, -.50, radians(10), #C80000, 255, 10);
@@ -1012,6 +873,16 @@ void draw() {
 
   if (scene == 11) {
     background(underwater);
+
+    image(heart0, random(20, 1260), random(20, 720));
+    frameRate(10);
+
+    //FISH STUFF 
+    drawFirstFish(fx, fy, -2, radians(20), #C80000, 255, 10);
+    FirstFishAnimate();
+    fx=width/2;
+    fy=height/2;
+    
     seaweeds(0, back[0], 1, 0.03);  
     seaweeds(1000, back[1], 0.5, 0.03);
     swap = 1;
@@ -1022,6 +893,7 @@ void draw() {
     seaweeds(500, back[5], 1, 0.03);
     swap = 0;
     seaweeds(-200, back[6], 0.5, 0.03);
+
 
     fill(255);
     textSize(100);
@@ -1866,15 +1738,15 @@ void mousePressed() {
     //press seamonster
     scene=8;
     println(scene);
-  }else if ((scene==8)&&(mouseX>334) && (mouseX<334+734) && (mouseY>73) && (mouseY<73+193)) {
+  } else if ((scene==8)&&(mouseX>334) && (mouseX<334+734) && (mouseY>73) && (mouseY<73+193)) {
     //press seamonster at net
     scene=9;
     println(scene);
-  }else if ((scene==9)&&(mouseX>821) && (mouseX<821+147) && (mouseY>265) && (mouseY<265+44)) {
+  } else if ((scene==9)&&(mouseX>821) && (mouseX<821+147) && (mouseY>265) && (mouseY<265+44)) {
     //press fish b4hearts
     scene=10;
     println(scene);
-  }else if (( scene==10 )) {
+  } else if (( scene==10 )) {
     //press
     scene=11;
     println(scene);
