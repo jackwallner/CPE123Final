@@ -14,6 +14,10 @@ int scene;
 int s1;
 int s2;
 
+// background sound stuff
+import processing.sound.*;
+SoundFile file;
+
 // sky stuff
 PImage sky0;
 PVector skyLoc;
@@ -159,6 +163,10 @@ void setup() {
   //boat setup
   brotate = 0;
   bpy= -425;
+
+  // background sound stuff
+  file = new SoundFile(this, "backgroundmusic.mp3");
+  file.play();
 
   // sky stuff
   sky0 = loadImage("sky.jpg");
@@ -359,7 +367,6 @@ void draw() {
       //fy += vy;
       fy+=2*sin(radians(fx)); //first fish wave
       drawFirstFish(fx, fy, -0.75, 0, #C80000, 255, 10);
-
     }
     if (fx <= 700) {
       if (scene == 1) {
@@ -552,7 +559,6 @@ void draw() {
         drawBubbles(bubblesLoc[i].x, bubblesLoc[i].y, bubblesScale[i], bubblesRotate[i], bubblesColor[i], bubblesStrokeColor[i], bubblesDiameter[i]);
       }
     }
-
   }
 
   //SCENE 5 WITH BOAT
@@ -882,7 +888,7 @@ void draw() {
     FirstFishAnimate();
     fx=width/2;
     fy=height/2;
-    
+
     seaweeds(0, back[0], 1, 0.03);  
     seaweeds(1000, back[1], 0.5, 0.03);
     swap = 1;
